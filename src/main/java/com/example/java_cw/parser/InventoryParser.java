@@ -54,21 +54,11 @@ public class InventoryParser {
                     }
 
 
-                    Part part = new Part (
-                            partId,
-                            partName,
-                            brand,
-                            price,
-                            quantity,
-                            category,
-                            dateAdded,
-                            imagePath
-
-                    );
+                    Part part = new Part (partId,partName,brand,price,quantity,category,dateAdded,imagePath);
                     parts.add(part);
 
                 } catch (NumberFormatException e) {
-                    System.out.println("Skipping invalid " + line);
+                    System.out.println("Skipping invalid line: " + line);
                 }
             }
             reader.close();
