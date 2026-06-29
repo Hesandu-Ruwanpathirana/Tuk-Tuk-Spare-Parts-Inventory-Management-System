@@ -72,7 +72,7 @@ public class InventoryService {
 
             boolean matchesCategory = category.isEmpty() || part.category.toLowerCase().equals(category.toLowerCase());
 
-            boolean matchesPrice = part.price >= minPrice && part.price <= maxPrice;
+            boolean matchesPrice = part.price >= minPrice && (maxPrice == 0 || part.price <= maxPrice);
 
             if (matchesKeyword && matchesCategory && matchesPrice) {
                 results.add(part);

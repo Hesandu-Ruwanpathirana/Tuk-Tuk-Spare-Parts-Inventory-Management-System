@@ -114,7 +114,7 @@ public class InventoryParser {
         }
 
         rawDate = rawDate.replace(",","").trim();
-        if(rawDate.matches("[a-zA-Z]+ \\d{2},\\d{4}")) {
+        if(rawDate.matches("[a-zA-Z]+ \\d{2} + \\d{4}")) {
             String[] dateParts = rawDate.split(" ");
             String month = convertMonth(dateParts[0]);
             return dateParts[1] + "-" + month + "-" + dateParts[2];

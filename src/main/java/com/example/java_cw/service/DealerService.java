@@ -20,6 +20,11 @@ public class DealerService {
     }
 
     public List<Dealer> getRandomDealers() {
+
+        if(dealers.size() < 4) {
+            return sortByLocation(new ArrayList<>(dealers));
+
+        }
         List<Dealer> selected = new ArrayList<>();
         List<Integer> usedIndexes = new ArrayList<>();
         Random random = new Random();
