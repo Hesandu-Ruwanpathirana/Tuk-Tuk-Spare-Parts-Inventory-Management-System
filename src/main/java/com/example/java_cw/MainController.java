@@ -72,14 +72,13 @@ public class MainController implements Initializable {
         inventoryService.loadParts();
         dealerService.loadDealers();
 
+        setupTableColumns();
 
         setupCategoryFilter();
 
         refreshTable();
 
         refreshLowStock();
-
-        setupTableColumns();
 
 
         System.out.println("Loaded " + inventoryService.getTotalCount() + " parts");
