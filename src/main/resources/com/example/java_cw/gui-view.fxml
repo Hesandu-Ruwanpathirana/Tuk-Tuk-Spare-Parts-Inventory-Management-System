@@ -13,14 +13,55 @@
           spacing="15">
         <VBox spacing="2">
             <Label text="TUK TUK SPARE PARTS"
-                   style="-fx-font-size: 22px;
+                   style="-fx-font-size: 25px;
                           -fx-font-weight: bold;
                           -fx-text-fill: white;"/>
             <Label text="~ MALABE ~"
-                   style="-fx-font-size: 12px;
+                   style="-fx-font-size: 16px;
                           -fx-text-fill: #CC2229;
                           -fx-font-weight: bold;"/>
         </VBox>
     </HBox>
+    <TabPane fx:id="mainTabPane"
+             tabClosingPolicy="UNAVAILABLE"
+             VBox.vgrow="ALWAYS">
+
+
+        <Tab text="Inventory">
+            <VBox spacing="10"
+                  style="-fx-padding: 15px; -fx-background-color: #F5F5F5;">
+
+                <VBox style="-fx-background-color: #FFF3CD;
+                             -fx-border-color: #CC2229;
+                             -fx-border-width: 1px;
+                             -fx-padding: 10px;
+                             -fx-background-radius: 5px;"
+                      spacing="5">
+
+                    <Label text="LOW STOCK WARNING"
+                           style="-fx-font-weight: bold;
+                                  -fx-text-fill: #CC2229;
+                                  -fx-font-size: 13px;"/>
+                    <Label fx:id="lowStockLabel"
+                           text="Loading..."
+                           style="-fx-text-fill: #856404;"/>
+                </VBox>
+
+            </VBox>
+        </Tab>
+
+        <Tab text="Dealers">
+            <VBox style="-fx-padding: 15px;">
+                <Label text="Dealers coming soon..."/>
+            </VBox>
+        </Tab>
+
+        <Tab text="Point of Sale">
+            <VBox style="-fx-padding: 15px;">
+                <Label text="Point of Sale coming soon..."/>
+            </VBox>
+        </Tab>
+
+    </TabPane>
 
 </VBox>
