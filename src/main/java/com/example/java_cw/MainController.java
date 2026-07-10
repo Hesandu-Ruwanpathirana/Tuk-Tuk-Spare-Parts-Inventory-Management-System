@@ -19,25 +19,40 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
-    @FXML private TabPane mainTabPane;
+    @FXML
+    private TabPane mainTabPane;
+    @FXML
+    private TableView<Part> inventoryTable;
+    @FXML
+    private TableColumn<Part, String> colPartId;
+    @FXML
+    private TableColumn<Part, String> colPartName;
+    @FXML
+    private TableColumn<Part, String> colBrand;
+    @FXML
+    private TableColumn<Part, Double> colPrice;
+    @FXML
+    private TableColumn<Part, Integer> colQuantity;
+    @FXML
+    private TableColumn<Part, String> colCategory;
+    @FXML
+    private TableColumn<Part, String> colDate;
 
-    @FXML private TableView<Part> inventoryTable;
-    @FXML private TableColumn<Part, String> colPartId;
-    @FXML private TableColumn<Part, String> colPartName;
-    @FXML private TableColumn<Part, String> colBrand;
-    @FXML private TableColumn<Part, Double> colPrice;
-    @FXML private TableColumn<Part, Integer> colQuantity;
-    @FXML private TableColumn<Part, String> colCategory;
-    @FXML private TableColumn<Part, String> colDate;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private ComboBox<String> categoryFilter;
+    @FXML
+    private TextField minPriceField;
+    @FXML
+    private TextField maxPriceField;
 
-    @FXML private TextField searchField;
-    @FXML private ComboBox<String> categoryFilter;
-    @FXML private TextField minPriceField;
-    @FXML private TextField maxPriceField;
-
-    @FXML private Label totalCountLabel;
-    @FXML private Label totalValueLabel;
-    @FXML private Label lowStockLabel;
+    @FXML
+    private Label totalCountLabel;
+    @FXML
+    private Label totalValueLabel;
+    @FXML
+    private Label lowStockLabel;
 
     private InventoryService inventoryService;
     private DealerService dealerService;
@@ -57,11 +72,15 @@ public class MainController implements Initializable {
         inventoryService.loadParts();
         dealerService.loadDealers();
 
+
         setupCategoryFilter();
 
         refreshTable();
 
         refreshLowStock();
+
+        setupTableColumns();
+
 
         System.out.println("Loaded " + inventoryService.getTotalCount() + " parts");
         System.out.println("Loaded " + dealerService.getTotalDealers() + " dealers");
@@ -117,6 +136,7 @@ public class MainController implements Initializable {
 
         totalCountLabel.setText("Results: " + results.size());
     }
+
     public void setupCategoryFilter() {
         categoryFilter.getItems().add("All Categories");
         categoryFilter.getItems().add("engine");
@@ -134,6 +154,7 @@ public class MainController implements Initializable {
         maxPriceField.clear();
         refreshTable();
     }
+
     public void refreshTable() {
         List<Part> sorted = inventoryService.getSortedParts();
         ObservableList<Part> observableList = FXCollections.observableArrayList(sorted);
@@ -151,4 +172,57 @@ public class MainController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    public void setupTableColumns() {
+        colPartId.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().partId));
+
+        colPartName.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().partName));
+
+        colBrand.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().brand));
+
+        colPrice.setCellValueFactory(data ->
+                new SimpleDoubleProperty(data.getValue().price).asObject());
+
+        colQuantity.setCellValueFactory(data ->
+                new SimpleIntegerProperty(data.getValue().quantity).asObject());
+
+        colCategory.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().category));
+
+        colDate.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().dateAdded));
+    }
+    @FXML
+    public void onAddPartClicked() {
+        showAlert("Add Part coming later");
+    }
+
+    @FXML
+    public void onEditPartClicked() {
+        Part selected = inventoryTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            showAlert("Please select a part from the table first.");
+            return;
+        }
+        showAlert("Edit Part coming later");
+    }
+
+    @FXML
+    public void onDeletePartClicked() {
+        Part selected = inventoryTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            showAlert("Please select a part from the table first.");
+            return;
+        }
+        inventoryService.deletePart(selected.partId);
+        refreshTable();
+        refreshLowStock();
+        showAlert("Part " + selected.partId + " deleted successfully.");
+    }
+
+
 }
+
