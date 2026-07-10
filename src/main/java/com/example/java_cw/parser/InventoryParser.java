@@ -1,14 +1,11 @@
 package com.example.java_cw.parser;
 
-
 import com.example.java_cw.model.Part;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-
 
 public class InventoryParser {
     public static List<Part> parseParts(String filePath) {
@@ -23,13 +20,37 @@ public class InventoryParser {
                 if(line.isEmpty()) {
                     continue;
                 }
+
                 String[] fields = line.split("[,|;]",-1);
 
                 for (int i = 0; i < fields.length; i++) {
                     fields[i]= fields[i].trim();
                 }
+
                 if (fields.length < 6) {
                     continue;
+                }
+
+                if (fields.length > 7) {
+                    if (fields[6].matches("[a-zA-Z]+ \\d{1,2}") &&
+                            fields[7].matches("\\d{4}")) {
+
+                        String mergedDate = fields[6] + " " + fields[7];
+
+                        String[] newFields = new String[fields.length - 1];
+
+                        for (int i = 0; i <= 6; i++) {
+                            newFields[i] = fields[i];
+                        }
+
+                        newFields[6] = mergedDate;
+
+                        for (int i = 8; i < fields.length; i++) {
+                            newFields[i - 1] = fields[i];
+                        }
+
+                        fields = newFields;
+                    }
                 }
 
                 try {
@@ -53,8 +74,7 @@ public class InventoryParser {
                         imagePath = cleanImagePath(fields[7]);
                     }
 
-
-                    Part part = new Part (partId,partName,brand,price,quantity,category,dateAdded,imagePath);
+                    Part part = new Part(partId,partName,brand,price,quantity,category,dateAdded,imagePath);
                     parts.add(part);
 
                 } catch (NumberFormatException e) {
@@ -68,6 +88,7 @@ public class InventoryParser {
         }
         return parts;
     }
+
     public static double cleanPrice(String rawPrice) {
         rawPrice = rawPrice.replaceAll("[^0-9.]","");
         rawPrice = rawPrice.replaceAll("^\\.+", "");
@@ -90,27 +111,27 @@ public class InventoryParser {
         if (rawDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
             String[] dateParts = rawDate.split("-");
             return dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
-
         }
 
         if (rawDate.matches("\\d{2}/\\d{2}/\\d{4}")) {
             String[] dateParts = rawDate.split("/");
             return dateParts[0] + "-" + dateParts[1] + "-" + dateParts[2];
-
         }
+
         if (rawDate.matches("\\d{4}/\\d{2}/\\d{2}")) {
             String[] dateParts = rawDate.split("/");
             return dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
         }
+
         if (rawDate.matches("\\d{2}-\\d{2}-\\d{4}")) {
             String[] dateParts = rawDate.split("-");
             return dateParts[0] + "-" + dateParts[1] + "-" + dateParts[2];
         }
+
         if (rawDate.matches("\\d{2}-[a-zA-Z]+-\\d{4}")) {
             String[] dateParts = rawDate.split("-");
             String month = convertMonth(dateParts[1]);
             return dateParts[0] + "-" + month + "-" + dateParts[2];
-
         }
 
         rawDate = rawDate.replace(",","").trim();
@@ -118,11 +139,11 @@ public class InventoryParser {
             String[] dateParts = rawDate.split(" ");
             String month = convertMonth(dateParts[0]);
             return dateParts[1] + "-" + month + "-" + dateParts[2];
-
         }
-        return rawDate;
 
+        return rawDate;
     }
+
     public static String convertMonth(String month) {
         month = month.toLowerCase();
         if (month.equals("jan")) {
@@ -163,6 +184,7 @@ public class InventoryParser {
         }
         return "00";
     }
+
     public static String cleanImagePath(String imagePath) {
         imagePath = imagePath.trim();
 
@@ -174,6 +196,4 @@ public class InventoryParser {
         }
         return "";
     }
-
-
 }
