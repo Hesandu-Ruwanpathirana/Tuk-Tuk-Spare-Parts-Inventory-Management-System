@@ -272,6 +272,39 @@ public class MainController implements Initializable {
         TextField imageField = new TextField();
         imageField.setPromptText("eg: image.jpg");
 
+        if (existingPart != null) {
+            partIdField.setText(existingPart.partId);
+            partIdField.setText(existingPart.partId);
+            partIdField.setEditable(false);
+            partNameField.setText(existingPart.partName);
+            brandField.setText(existingPart.brand);
+            priceField.setText(String.valueOf(existingPart.price));
+            quantityField.setText(String.valueOf(existingPart.quantity));
+            categoryBox.setValue(existingPart.category);
+            dateField.setText(existingPart.dateAdded);
+            imageField.setText(existingPart.imagePath);
+
+        }
+
+        grid.add(new Label("Part ID:"),0,0);
+        grid.add(partIdField,1,0);
+        grid.add(new Label("Part Name:"),0,1);
+        grid.add(partNameField,1,1);
+        grid.add(new Label("Brand:"),0,2);
+        grid.add(brandField,1,2);
+        grid.add(new Label("Price (Rs.):"),0,3);
+        grid.add(priceField,1,3);
+        grid.add(new Label("Quantity:"),0,4);
+        grid.add(quantityField,1,4);
+        grid.add(new Label("Category:"),0,5);
+        grid.add(categoryBox,1,5);
+        grid.add(new Label("Date Added:"),0,6);
+        grid.add(dateField,1,6);
+        grid.add(new Label("Image Path:"),0,7);
+        grid.add(imageField,1,7);
+
+
+
 
 
 
