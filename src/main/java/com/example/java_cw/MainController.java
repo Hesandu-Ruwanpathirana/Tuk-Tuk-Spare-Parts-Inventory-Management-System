@@ -4,6 +4,7 @@ import com.example.java_cw.model.Cart;
 import com.example.java_cw.model.Part;
 import com.example.java_cw.service.DealerService;
 import com.example.java_cw.service.InventoryService;
+import com.sun.source.doctree.TextTree;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,6 +16,11 @@ import javafx.beans.property.SimpleIntegerProperty;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.scene.layout.GridPane;
+import javafx.geometry.Insets;
+import javafx.scene.text.Text;
+
+import java.util.Optional;
 
 public class MainController implements Initializable {
 
@@ -220,7 +226,56 @@ public class MainController implements Initializable {
         refreshLowStock();
         showAlert("Part " + selected.partId + " deleted successfully.");
     }
+    public void showPartDialog(Part existingPart) {
+        Dialog<Part> dialog =  new Dialog<>();
 
+        if (existingPart == null) {
+            dialog.setTitle("Add new Part");
+            dialog.setHeaderText("Enter details for the new part");
+
+        } else {
+            dialog.setTitle("Edit Part");
+            dialog.setHeaderText("Enter details for " + existingPart.partId);
+
+        }
+
+        ButtonType saveButtonType = new ButtonType("Save",ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(saveButtonType,ButtonType.CANCEL);
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20,150,10,10));
+
+        TextField partIdField = new TextField();
+        partIdField.setPromptText("eg: P012");
+
+        TextField partNameField = new TextField();
+        partNameField.setPromptText("eg: Bajaj Brake Pad");
+
+        TextField brandField = new TextField();
+        brandField.setPromptText("eg: Bajaj");
+
+        TextField priceField = new TextField();
+        priceField.setPromptText("eg: 1500.00");
+
+        TextField quantityField = new TextField();
+        quantityField.setPromptText("eg: 10");
+
+        ComboBox<String> categoryBox = new ComboBox<>();
+        categoryBox.getItems().addAll("engine","electrical","brakes","bodywork");
+        categoryBox.setPromptText("Select category: ");
+
+        TextField dateField = new TextField();
+        dateField.setPromptText("eg: 15-09-2009");
+
+        TextField imageField = new TextField();
+        imageField.setPromptText("eg: image.jpg");
+
+
+
+
+    }
 
 }
 
