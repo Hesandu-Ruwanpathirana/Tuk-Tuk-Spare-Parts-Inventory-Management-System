@@ -303,12 +303,33 @@ public class MainController implements Initializable {
         grid.add(new Label("Image Path:"),0,7);
         grid.add(imageField,1,7);
 
+        dialog.getDialogPane().setContent(grid);
+
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == saveButtonType) {
+                String partId = partIdField.getText().trim();
+                String partName = partNameField.getText().trim();
+                String brand = brandField.getText().trim();
+                String priceText = priceField.getText().trim();
+                String quantityText = quantityField.getText().trim();
+                String category = categoryBox.getValue().trim();
+                String dateAdded = dateField.getText().trim();
+                String imagePath = imageField.getText().trim();
+
+                if (partId.isEmpty() || partName.isEmpty() || priceText.isEmpty() || quantityText.isEmpty() || category == null ) {
+                    showAlert("Part ID, Name, Price, Quantity and Category is required");
+
+            }
 
 
-
-
-
+            }
+        }
     }
-
 }
+
+
+
+
+
+
 
