@@ -2,10 +2,10 @@ package com.example.java_cw.model;
 
 public class Dealer {
 
-    public String dealerId;
-    public String dealerName;
-    public String dealerPhone;
-    public String dealerLocation;
+    private String dealerId;
+    private String dealerName;
+    private String dealerPhone;
+    private String dealerLocation;
 
     public Dealer(String dealerId, String dealerName, String dealerPhone, String dealerLocation) {
         this.dealerId = dealerId;
@@ -15,6 +15,24 @@ public class Dealer {
 
     }
 
+    public String getDealerId() {
+        return dealerId;
+    }
+    public String getDealerName() {
+        return dealerName;
+    }
+    public void setPartName(String partName) {
+        if (partName == null || partName.trim().isEmpty()) {
+
+
+        }
+    }
+    public String getDealerPhone() {
+        return dealerPhone;
+    }
+    public String getDealerLocation() {
+        return dealerLocation;
+    }
     public String toString() {
         return dealerId + " | " + dealerName + " | " + dealerPhone + " | " + dealerLocation;
     }
