@@ -3,7 +3,6 @@ package com.example.java_cw.service;
 import com.example.java_cw.model.Part;
 import com.example.java_cw.parser.InventoryParser;
 import com.example.java_cw.util.AuditLogger;
-
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.FileWriter;
@@ -30,14 +29,14 @@ public class InventoryService {
     public void addPart(Part part) {
         parts.add(part);
         saveToFile();
-        AuditLogger.log(auditLogPath,"ADD",part.partId,"Qty: " + part.quantity);
+        AuditLogger.log(auditLogPath,"ADD",part.getPartId(),"Qty: " + part.getQuantity());
 
     }
     public void deletePart(String partId) {
         Part toDelete = null;
 
         for (int i = 0; i < parts.size() ; i++) {
-            if(parts.get(i).partId.equals(partId)) {
+            if(parts.get(i).getPartId().equals(partId)) {
                 toDelete = parts.get(i);
                 break;
 
@@ -53,7 +52,7 @@ public class InventoryService {
     }
     public void updatePart(String partId, Part updatedPart) {
         for (int i = 0; i < parts.size(); i ++) {
-            if(parts.get(i).partId.equals(partId)) {
+            if(parts.get(i).getPartId().equals(partId)) {
                     parts.set(i,updatedPart);
                     saveToFile();
                     return;
@@ -67,12 +66,12 @@ public class InventoryService {
         for (int i = 0; i < parts.size(); i++) {
             Part part = parts.get(i);
 
-            boolean matchesKeyword = keyword.isEmpty() || part.partName.toLowerCase().contains(keyword.toLowerCase()) ||
-                    part.brand.toLowerCase().contains(keyword.toLowerCase()) || part.partId.toLowerCase().contains(keyword.toLowerCase());
+            boolean matchesKeyword = keyword.isEmpty() || part.getPartName().toLowerCase().contains(keyword.toLowerCase()) ||
+                    part.getBrand().toLowerCase().contains(keyword.toLowerCase()) || part.getPartId().toLowerCase().contains(keyword.toLowerCase());
 
-            boolean matchesCategory = category.isEmpty() || part.category.toLowerCase().equals(category.toLowerCase());
+            boolean matchesCategory = category.isEmpty() || part.getCategory().toLowerCase().equals(category.toLowerCase());
 
-            boolean matchesPrice = part.price >= minPrice && (maxPrice == 0 || part.price <= maxPrice);
+            boolean matchesPrice = part.getPrice() >= minPrice && (maxPrice == 0 || part.getPrice() <= maxPrice);
 
             if (matchesKeyword && matchesCategory && matchesPrice) {
                 results.add(part);
@@ -85,7 +84,7 @@ public class InventoryService {
         List<Part> lowStock = new ArrayList<>();
 
         for (int i = 0; i < parts.size(); i++) {
-            if(parts.get(i).quantity <= lowStockThreshold) {
+            if(parts.get(i).getQuantity() <= lowStockThreshold) {
                 lowStock.add(parts.get(i));
             }
         }
@@ -99,13 +98,13 @@ public class InventoryService {
                 Part a = sorted.get(j);
                 Part b = sorted.get(j+1);
 
-                int categoryCompare = a.category.toLowerCase() .compareTo(b.category.toLowerCase());
+                int categoryCompare = a.getCategory().toLowerCase() .compareTo(b.getCategory().toLowerCase());
 
                 if (categoryCompare > 0) {
                     sorted.set(j,b);
                     sorted.set(j+1,a);
                 }else if (categoryCompare == 0) {
-                    if (a.partId.compareTo(b.partId) > 0) {
+                    if (a.getPartId().compareTo(b.getPartId()) > 0) {
                         sorted.set(j,b);
                         sorted.set(j+1,a);
 
@@ -134,7 +133,7 @@ public class InventoryService {
         double total = 0;
 
         for (int i = 0; i < parts.size(); i++) {
-            total += parts.get(i).price * parts.get(i).quantity;
+            total += parts.get(i).getPrice() * parts.get(i).getQuantity();
 
         }
         return total;
