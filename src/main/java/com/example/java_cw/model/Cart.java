@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {
-    public List<CartItem> items;
+    private List<CartItem> items;
 
     public Cart() {
         this.items = new ArrayList<>();
@@ -17,13 +17,13 @@ public class Cart {
             return "Quantity must be greater than zero";
         }
 
-        if (quantity > part.quantity) {
-            return "Not enough stock. Available: " + part.quantity;
+        if (quantity > part.getQuantity()) {
+            return "Not enough stock. Available: " + part.getQuantity();
         }
 
         for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).part.partId.equals(part.partId)) {
-                items.get(i).quantity += quantity;
+            if (items.get(i).getPart().getPartId().equals(part.getPartId())) {
+                items.get(i).setQuantity(items.get(i).getQuantity() + quantity);
                 return "success";
             }
         }
@@ -34,7 +34,7 @@ public class Cart {
 
     public void removeItem(String partId) {
         for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).part.partId.equals(partId)) {
+            if (items.get(i).getPart().getPartId().equals(partId)) {
                 items.remove(i);
                 return;
             }
@@ -56,7 +56,7 @@ public class Cart {
             CartItem item = items.get(i);
             double subTotal = item.getSubTotal();
 
-            if (item.quantity >= 3) {
+            if (item.getQuantity() >= 3) {
                 subTotal = subTotal * 0.95;
             }
 
@@ -72,7 +72,7 @@ public class Cart {
 
     public boolean hasCategory(String category) {
         for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).part.category.toLowerCase().equals(category)) {
+            if (items.get(i).getPart().getCategory().toLowerCase().equals(category)) {
                 return true;
             }
         }
@@ -87,10 +87,10 @@ public class Cart {
         for (int i = 0; i < items.size(); i++) {
             CartItem item = items.get(i);
 
-            item.part.quantity -= item.quantity;
+            item.getPart().setQuantity(item.getPart().getQuantity() - item.getQuantity());
 
             AuditLogger.log(
-                    auditLogPath, "CHECKOUT", item.part.partId, "Qty: " + item.quantity);
+                    auditLogPath, "CHECKOUT", item.getPart().getPartId(), "Qty: " + item.getQuantity());
         }
 
         inventoryService.saveToFile();
