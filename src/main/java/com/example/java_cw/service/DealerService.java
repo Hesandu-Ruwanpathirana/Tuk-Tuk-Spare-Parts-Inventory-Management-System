@@ -57,7 +57,7 @@ public class DealerService {
                 Dealer a = sorted.get(j);
                 Dealer b = sorted.get(j+1);
 
-                if(a.dealerLocation.toLowerCase().compareTo(b.dealerLocation.toLowerCase()) > 0) {
+                if(a.getDealerLocation().toLowerCase().compareTo(b.getDealerLocation().toLowerCase()) > 0) {
                     sorted.set(j,b);
                     sorted.set(j+1,a);
                 }
