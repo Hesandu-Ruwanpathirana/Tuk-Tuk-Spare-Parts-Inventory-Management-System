@@ -1,145 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.geometry.Insets?>
 
-<VBox xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.java_cw.MainController"
-      style="-fx-background-color: #F5F5F5;">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-    <HBox style="-fx-background-color: #1A3A6B; -fx-padding: 10px;"
-          alignment="CENTER_LEFT" spacing="15">
+<VBox style="-fx-background-color: #F5F5F5;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/26" fx:controller="com.example.java_cw.MainController">
+
+    <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-background-color: #1A3A6B; -fx-padding: 10px;">
         <ImageView fx:id="logoImage" fitHeight="150" fitWidth="150" preserveRatio="true">
             <image>
-                <Image url="@tuk_tuk_3.png"/>
+                <Image url="@tuk_tuk_3.png" />
             </image>
         </ImageView>
         <VBox spacing="4">
-            <Label text="TUK TUK SPARE PARTS"
-                   style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: white;"/>
-            <Label text="~ MALABE ~"
-                   style="-fx-font-size: 18px; -fx-text-fill: #CC2229; -fx-font-weight: bold;"/>
+            <Label style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: white;" text="TUK TUK SPARE PARTS" />
+            <Label style="-fx-font-size: 18px; -fx-text-fill: #CC2229; -fx-font-weight: bold;" text="~ MALABE ~" />
         </VBox>
     </HBox>
 
-    <TabPane fx:id="mainTabPane"
-             tabClosingPolicy="UNAVAILABLE"
-             style="-fx-background-color: #F5F5F5;"
-             VBox.vgrow="ALWAYS">
+    <TabPane fx:id="mainTabPane" style="-fx-background-color: #F5F5F5;" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
 
         <Tab text="Inventory">
             <VBox spacing="10" style="-fx-padding: 15px; -fx-background-color: #F5F5F5;">
 
-                <VBox fx:id="lowStockBox"
-                      spacing="5"
-                      style="-fx-background-color: #FFF3CD;
-                             -fx-border-color: #CC2229;
-                             -fx-border-width: 1px;
-                             -fx-padding: 10px;
-                             -fx-background-radius: 5px;">
-                    <Label text="LOW STOCK WARNING"
-                           style="-fx-font-weight: bold; -fx-text-fill: #CC2229; -fx-font-size: 13px;"/>
-                    <Label fx:id="lowStockLabel"
-                           text="Loading..."
-                           style="-fx-text-fill: #856404;"/>
-                </VBox>
-
-                <HBox spacing="10" alignment="CENTER_LEFT">
-                    <TextField fx:id="searchField"
-                               promptText="Search by name, brand or ID..."
-                               prefWidth="250"
-                               style="-fx-padding: 8px; -fx-border-color: #1A3A6B; -fx-border-radius: 4px;"/>
-                    <ComboBox fx:id="categoryFilter"
-                              promptText="All Categories"
-                              style="-fx-padding: 6px;"/>
-                    <TextField fx:id="minPriceField"
-                               promptText="Min Price"
-                               prefWidth="100"
-                               style="-fx-padding: 8px; -fx-border-color: #1A3A6B; -fx-border-radius: 4px;"/>
-                    <TextField fx:id="maxPriceField"
-                               promptText="Max Price"
-                               prefWidth="100"
-                               style="-fx-padding: 8px; -fx-border-color: #1A3A6B; -fx-border-radius: 4px;"/>
-                    <Button fx:id="searchButton"
-                            text="Search"
-                            onAction="#onSearchClicked"
-                            style="-fx-background-color: #1A3A6B;
-                                   -fx-text-fill: white;
-                                   -fx-padding: 8px 15px;
-                                   -fx-background-radius: 4px;
-                                   -fx-font-weight: bold;"/>
-                    <Button text="Reset"
-                            onAction="#onResetClicked"
-                            style="-fx-background-color: #CC2229;
-                                   -fx-text-fill: white;
-                                   -fx-padding: 8px 15px;
-                                   -fx-background-radius: 4px;
-                                   -fx-font-weight: bold;"/>
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label minWidth="150" text="Low Stock Threshold:">
+                  <font>
+                     <Font name="System Bold" size="13.0" />
+                  </font></Label>
+                    <TextField fx:id="thresholdField" prefWidth="100" promptText="eg: 10" />
+                    <Button minWidth="80" onAction="#onSetThresholdClicked" text="Apply" />
                 </HBox>
 
-                <TableView fx:id="inventoryTable"
-                           VBox.vgrow="ALWAYS"
-                           style="-fx-background-color: white;
-                                  -fx-border-color: #DDDDDD;">
+                <VBox fx:id="lowStockBox" spacing="5" style="-fx-background-color: #FFF3CD;                              -fx-border-color: #CC2229;                              -fx-border-width: 1px;                              -fx-padding: 10px;                              -fx-background-radius: 5px;">
+                    <Label style="-fx-font-weight: bold; -fx-text-fill: #CC2229; -fx-font-size: 13px;" text="LOW STOCK WARNING" />
+                    <Label fx:id="lowStockLabel" style="-fx-text-fill: #856404;" text="Loading..." />
+
+                </VBox>
+
+                <HBox alignment="CENTER_LEFT" spacing="10">
+
+                    <TextField fx:id="searchField" prefWidth="250" promptText="Search by name, brand or ID..." style="-fx-padding: 8px; -fx-border-color: #1A3A6B; -fx-border-radius: 4px;" />
+                    <ComboBox fx:id="categoryFilter" promptText="All Categories" style="-fx-padding: 6px;" />
+                    <TextField fx:id="minPriceField" prefWidth="100" promptText="Min Price" style="-fx-padding: 8px; -fx-border-color: #1A3A6B; -fx-border-radius: 4px;" />
+                    <TextField fx:id="maxPriceField" prefWidth="100" promptText="Max Price" style="-fx-padding: 8px; -fx-border-color: #1A3A6B; -fx-border-radius: 4px;" />
+                    <Button fx:id="searchButton" onAction="#onSearchClicked" style="-fx-background-color: #1A3A6B;                                    -fx-text-fill: white;                                    -fx-padding: 8px 15px;                                    -fx-background-radius: 4px;                                    -fx-font-weight: bold;" text="Search" />
+                    <Button onAction="#onResetClicked" style="-fx-background-color: #CC2229;                                    -fx-text-fill: white;                                    -fx-padding: 8px 15px;                                    -fx-background-radius: 4px;                                    -fx-font-weight: bold;" text="Reset" />
+                </HBox>
+
+                <TableView fx:id="inventoryTable" style="-fx-background-color: white;                                   -fx-border-color: #DDDDDD;" VBox.vgrow="ALWAYS">
                     <columns>
-                        <TableColumn fx:id="colPartId" text="Part ID" prefWidth="80"/>
-                        <TableColumn fx:id="colPartName" text="Part Name" prefWidth="200"/>
-                        <TableColumn fx:id="colBrand" text="Brand" prefWidth="100"/>
-                        <TableColumn fx:id="colPrice" text="Price (Rs.)" prefWidth="100"/>
-                        <TableColumn fx:id="colQuantity" text="Qty" prefWidth="60"/>
-                        <TableColumn fx:id="colCategory" text="Category" prefWidth="100"/>
-                        <TableColumn fx:id="colDate" text="Date Added" prefWidth="110"/>
+                        <TableColumn fx:id="colPartId" prefWidth="80" text="Part ID" />
+                        <TableColumn fx:id="colPartName" prefWidth="200" text="Part Name" />
+                        <TableColumn fx:id="colBrand" prefWidth="100" text="Brand" />
+                        <TableColumn fx:id="colPrice" prefWidth="100" text="Price (Rs.)" />
+                        <TableColumn fx:id="colQuantity" prefWidth="60" text="Qty" />
+                        <TableColumn fx:id="colCategory" prefWidth="100" text="Category" />
+                        <TableColumn fx:id="colDate" prefWidth="110" text="Date Added" />
                     </columns>
                 </TableView>
 
-                <HBox spacing="20"
-                      style="-fx-background-color: #1A3A6B;
-                             -fx-padding: 10px;
-                             -fx-background-radius: 5px;"
-                      alignment="CENTER_LEFT">
-                    <Label fx:id="totalCountLabel"
-                           text="Total Parts: 0"
-                           style="-fx-text-fill: white; -fx-font-weight: bold;"/>
-                    <Label text="|" style="-fx-text-fill: white;"/>
-                    <Label fx:id="totalValueLabel"
-                           text="Total Value: Rs. 0.00"
-                           style="-fx-text-fill: white; -fx-font-weight: bold;"/>
-                    <Region HBox.hgrow="ALWAYS"/>
-                    <Button text="Add Part"
-                            onAction="#onAddPartClicked"
-                            style="-fx-background-color: white;
-                                   -fx-text-fill: #1A3A6B;
-                                   -fx-font-weight: bold;
-                                   -fx-padding: 6px 15px;
-                                   -fx-background-radius: 4px;"/>
-                    <Button text="Edit Part"
-                            onAction="#onEditPartClicked"
-                            style="-fx-background-color: white;
-                                   -fx-text-fill: #1A3A6B;
-                                   -fx-font-weight: bold;
-                                   -fx-padding: 6px 15px;
-                                   -fx-background-radius: 4px;"/>
-                    <Button text="Delete Part"
-                            onAction="#onDeletePartClicked"
-                            style="-fx-background-color: #CC2229;
-                                   -fx-text-fill: white;
-                                   -fx-font-weight: bold;
-                                   -fx-padding: 6px 15px;
-                                   -fx-background-radius: 4px;"/>
+                <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #1A3A6B;                              -fx-padding: 10px;                              -fx-background-radius: 5px;">
+                    <Label fx:id="totalCountLabel" style="-fx-text-fill: white; -fx-font-weight: bold;" text="Total Parts: 0" />
+                    <Label style="-fx-text-fill: white;" text="|" />
+                    <Label fx:id="totalValueLabel" style="-fx-text-fill: white; -fx-font-weight: bold;" text="Total Value: Rs. 0.00" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button onAction="#onAddPartClicked" style="-fx-background-color: white;                                    -fx-text-fill: #1A3A6B;                                    -fx-font-weight: bold;                                    -fx-padding: 6px 15px;                                    -fx-background-radius: 4px;" text="Add Part" />
+                    <Button onAction="#onEditPartClicked" style="-fx-background-color: white;                                    -fx-text-fill: #1A3A6B;                                    -fx-font-weight: bold;                                    -fx-padding: 6px 15px;                                    -fx-background-radius: 4px;" text="Edit Part" />
+                    <Button onAction="#onDeletePartClicked" style="-fx-background-color: #CC2229;                                    -fx-text-fill: white;                                    -fx-font-weight: bold;                                    -fx-padding: 6px 15px;                                    -fx-background-radius: 4px;" text="Delete Part" />
                 </HBox>
 
             </VBox>
         </Tab>
 
         <Tab text="Dealers">
-            <VBox fx:id="dealersPane" spacing="10"
-                  style="-fx-padding: 15px; -fx-background-color: #F5F5F5;"/>
+            <VBox fx:id="dealersPane" spacing="10" style="-fx-padding: 15px; -fx-background-color: #F5F5F5;" />
         </Tab>
 
         <Tab text="Point of Sale">
-            <VBox fx:id="posPane" spacing="10"
-                  style="-fx-padding: 15px; -fx-background-color: #F5F5F5;"/>
+            <VBox fx:id="posPane" spacing="10" style="-fx-padding: 15px; -fx-background-color: #F5F5F5;" />
         </Tab>
 
     </TabPane>

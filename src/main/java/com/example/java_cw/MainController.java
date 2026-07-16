@@ -57,6 +57,8 @@ public class MainController implements Initializable {
     private Label totalValueLabel;
     @FXML
     private Label lowStockLabel;
+    @FXML
+    private TextField thresholdField;
 
     private InventoryService inventoryService;
     private DealerService dealerService;
@@ -366,6 +368,33 @@ public class MainController implements Initializable {
                     refreshTable();
                     refreshLowStock();
                 });
+        }
+        public void onSetThresholdClicked() {
+            String text = thresholdField.getText().trim();
+
+            if (text.isEmpty()) {
+                showAlert("Please enter a threshold number.");
+                return;
+            }
+            int threshold;
+            try {
+                threshold = Integer.parseInt(text);
+            } catch (NumberFormatException e) {
+                showAlert("Threshold must be a valid number.");
+                return;
+            }
+            if (threshold < 0) {
+                System.out.println("Threshold cannot be negative.");
+                return;
+
+            }
+            inventoryService.lowStockThreshold = threshold;
+            refreshLowStock();
+
+            List<Part> lowStockParts = inventoryService.getLowStockParts();
+            ObservableList<Part> observableList = FXCollections.observableArrayList(lowStockParts);
+            inventoryTable.setItems(observableList);
+
         }
 
     }
