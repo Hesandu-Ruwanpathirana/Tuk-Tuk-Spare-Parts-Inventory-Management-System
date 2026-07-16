@@ -61,7 +61,7 @@ public class InventoryParser {
                     brand = fields.length > 2 ? brand = fields[2] : "";
 
                     double price = cleanPrice(fields[3]);
-                    int quantity = Integer.parseInt(fields[4]);
+                    int quantity = cleanQuantity(fields[4]);
                     String category = fields[5].toLowerCase();
 
                     String dateAdded = "";
@@ -98,6 +98,16 @@ public class InventoryParser {
             return Double.parseDouble(rawPrice);
         } catch (NumberFormatException e) {
             return 0.0;
+        }
+    }
+    public static int cleanQuantity(String rawQuantity) {
+        rawQuantity = rawQuantity.replaceAll("[^0-9]","");
+        rawQuantity = rawQuantity.trim();
+
+        try {
+            return Integer.parseInt(rawQuantity);
+        } catch (NumberFormatException e) {
+            return 0;
         }
     }
 
