@@ -4,7 +4,6 @@ import com.example.java_cw.model.Cart;
 import com.example.java_cw.model.Part;
 import com.example.java_cw.service.DealerService;
 import com.example.java_cw.service.InventoryService;
-import com.sun.source.doctree.TextTree;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,7 +17,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.scene.layout.GridPane;
 import javafx.geometry.Insets;
-import javafx.scene.text.Text;
+
 
 import java.util.Optional;
 
@@ -100,7 +99,7 @@ public class MainController implements Initializable {
             String message = "";
             for (int i = 0; i < lowStock.size(); i++) {
                 Part p = lowStock.get(i);
-                message += p.partId + " - " + p.partName + " (Qty: " + p.quantity + ")";
+                message += p.getPartId() + " - " + p.getPartName() + " (Qty: " + p.getQuantity() + ")";
                 if (i < lowStock.size() - 1) {
                     message += ",  ";
                 }
@@ -179,39 +178,41 @@ public class MainController implements Initializable {
 
     public void setupTableColumns() {
         colPartId.setCellValueFactory(data ->
-                new SimpleStringProperty(data.getValue().partId));
+                new SimpleStringProperty(data.getValue().getPartId()));
 
         colPartName.setCellValueFactory(data ->
-                new SimpleStringProperty(data.getValue().partName));
+                new SimpleStringProperty(data.getValue().getPartName()));
 
         colBrand.setCellValueFactory(data ->
-                new SimpleStringProperty(data.getValue().brand));
+                new SimpleStringProperty(data.getValue().getBrand()));
 
         colPrice.setCellValueFactory(data ->
-                new SimpleDoubleProperty(data.getValue().price).asObject());
+                new SimpleDoubleProperty(data.getValue().getPrice()).asObject());
 
         colQuantity.setCellValueFactory(data ->
-                new SimpleIntegerProperty(data.getValue().quantity).asObject());
+                new SimpleIntegerProperty(data.getValue().getQuantity()).asObject());
 
         colCategory.setCellValueFactory(data ->
-                new SimpleStringProperty(data.getValue().category));
+                new SimpleStringProperty(data.getValue().getCategory()));
 
         colDate.setCellValueFactory(data ->
-                new SimpleStringProperty(data.getValue().dateAdded));
+                new SimpleStringProperty(data.getValue().getDateAdded()));
     }
     @FXML
     public void onAddPartClicked() {
-        showAlert("Add Part coming later");
+        showPartDialog(null);
     }
 
     @FXML
     public void onEditPartClicked() {
         Part selected = inventoryTable.getSelectionModel().getSelectedItem();
+
         if (selected == null) {
-            showAlert("Please select a part from the table first.");
+            showAlert("You should pick a part from the table first and then you can edit it.");
             return;
+
         }
-        showAlert("Edit Part coming later");
+        showPartDialog(selected);
     }
 
     @FXML
@@ -221,10 +222,10 @@ public class MainController implements Initializable {
             showAlert("Please select a part from the table first.");
             return;
         }
-        inventoryService.deletePart(selected.partId);
+        inventoryService.deletePart(selected.getPartId());
         refreshTable();
         refreshLowStock();
-        showAlert("Part " + selected.partId + " deleted successfully.");
+        showAlert("Part " + selected.getPartId() + " deleted successfully.");
     }
     public void showPartDialog(Part existingPart) {
         Dialog<Part> dialog =  new Dialog<>();
@@ -235,7 +236,7 @@ public class MainController implements Initializable {
 
         } else {
             dialog.setTitle("Edit Part");
-            dialog.setHeaderText("Enter details for " + existingPart.partId);
+            dialog.setHeaderText("Enter details for " + existingPart.getPartId());
 
         }
 
@@ -273,16 +274,15 @@ public class MainController implements Initializable {
         imageField.setPromptText("eg: image.jpg");
 
         if (existingPart != null) {
-            partIdField.setText(existingPart.partId);
-            partIdField.setText(existingPart.partId);
+            partIdField.setText(existingPart.getPartId());
             partIdField.setEditable(false);
-            partNameField.setText(existingPart.partName);
-            brandField.setText(existingPart.brand);
-            priceField.setText(String.valueOf(existingPart.price));
-            quantityField.setText(String.valueOf(existingPart.quantity));
-            categoryBox.setValue(existingPart.category);
-            dateField.setText(existingPart.dateAdded);
-            imageField.setText(existingPart.imagePath);
+            partNameField.setText(existingPart.getPartName());
+            brandField.setText(existingPart.getBrand());
+            priceField.setText(String.valueOf(existingPart.getPrice()));
+            quantityField.setText(String.valueOf(existingPart.getQuantity()));
+            categoryBox.setValue(existingPart.getCategory());
+            dateField.setText(existingPart.getDateAdded());
+            imageField.setText(existingPart.getImagePath());
 
         }
 
@@ -316,16 +316,61 @@ public class MainController implements Initializable {
                 String dateAdded = dateField.getText().trim();
                 String imagePath = imageField.getText().trim();
 
-                if (partId.isEmpty() || partName.isEmpty() || priceText.isEmpty() || quantityText.isEmpty() || category == null ) {
+                if (partId.isEmpty() || partName.isEmpty() || priceText.isEmpty() || quantityText.isEmpty() || category == null) {
                     showAlert("Part ID, Name, Price, Quantity and Category is required");
+                    return null;
 
-            }
+                }
+                    double price = 0;
+                    int quantity = 0;
 
+                    try {
+                        price = Double.parseDouble(priceText);
 
-            }
+                    } catch (NumberFormatException e) {
+                        showAlert("Price must be valid number ");
+                        return null;
+                    }
+
+                    try {
+                        quantity = Integer.parseInt(quantityText);
+                    } catch (NumberFormatException e) {
+                        showAlert("Quantity must be a valid number ");
+                        return null;
+                    }
+                    if (price <= 0) {
+                        showAlert("Price must be greater than zero ");
+                        return null;
+                    }
+                    if (quantity < 0) {
+                        showAlert("Quantity cannot be negative ");
+                        return null;
+
+                    }
+                    return new Part(partId, partName, brand, price, quantity, category.toLowerCase(), dateAdded, imagePath);
+
+                    }
+                    return null;
+                });
+
+                Optional<Part> result = dialog.showAndWait();
+
+                result.ifPresent(part -> {
+                    if (existingPart == null) {
+                        inventoryService.addPart(part);
+                        showAlert("Part " + part.getPartId() + " added successfully");
+                    } else {
+                        inventoryService.updatePart(existingPart.getPartId(),part);
+                        showAlert("Part " + part.getPartId() + " updated successfully");
+                    }
+                    refreshTable();
+                    refreshLowStock();
+                });
         }
+
     }
-}
+
+
 
 
 
