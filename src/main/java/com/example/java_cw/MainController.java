@@ -2,6 +2,7 @@ package com.example.java_cw;
 
 import com.example.java_cw.model.Cart;
 import com.example.java_cw.model.Part;
+import com.example.java_cw.model.Dealer;
 import com.example.java_cw.service.DealerService;
 import com.example.java_cw.service.InventoryService;
 import javafx.collections.FXCollections;
@@ -42,7 +43,6 @@ public class MainController implements Initializable {
     private TableColumn<Part, String> colCategory;
     @FXML
     private TableColumn<Part, String> colDate;
-
     @FXML
     private TextField searchField;
     @FXML
@@ -51,7 +51,6 @@ public class MainController implements Initializable {
     private TextField minPriceField;
     @FXML
     private TextField maxPriceField;
-
     @FXML
     private Label totalCountLabel;
     @FXML
@@ -60,6 +59,11 @@ public class MainController implements Initializable {
     private Label lowStockLabel;
     @FXML
     private TextField thresholdField;
+    @FXML private TableView<Dealer> dealersTable;
+    @FXML private TableColumn<Dealer, String> colDealerId;
+    @FXML private TableColumn<Dealer, String> colDealerName;
+    @FXML private TableColumn<Dealer, String> colDealerPhone;
+    @FXML private TableColumn<Dealer, String> colDealerLocation;
 
     private InventoryService inventoryService;
     private DealerService dealerService;
@@ -78,6 +82,8 @@ public class MainController implements Initializable {
 
         inventoryService.loadParts();
         dealerService.loadDealers();
+        setUpDealerTableColumns();
+        refreshDealerTable();
 
         setupTableColumns();
 
@@ -202,6 +208,24 @@ public class MainController implements Initializable {
 
         colDate.setCellValueFactory(data ->
                 new SimpleStringProperty(data.getValue().getDateAdded()));
+    }
+
+    public void setUpDealerTableColumns() {
+        colDealerId.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDealerId()));
+        colDealerName.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDealerName()));
+        colDealerPhone.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDealerPhone()));
+        colDealerLocation.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDealerLocation()));
+    }
+
+    public void refreshDealerTable() {
+        List<Dealer> randomDealers = dealerService.getRandomDealers();
+        ObservableList<Dealer> observableList = FXCollections.observableArrayList(randomDealers);
+        dealersTable.setItems(observableList);
+    }
+
+    @FXML
+    public void onRefreshDealerClicked() {
+        refreshDealerTable();
     }
     @FXML
     public void onAddPartClicked() {

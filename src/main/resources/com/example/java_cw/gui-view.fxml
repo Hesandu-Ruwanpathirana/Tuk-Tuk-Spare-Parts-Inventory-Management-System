@@ -85,7 +85,28 @@
         </Tab>
 
         <Tab text="Dealers">
-            <VBox fx:id="dealersPane" spacing="10" style="-fx-padding: 15px; -fx-background-color: #F5F5F5;" />
+            <VBox spacing="10" style="-fx-padding: 15px; -fx-background-color: #F5F5F5;">
+
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="Randomly Selected Dealers (sorted by location)"
+                           style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1A3A6B;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Select Dealers"
+                            onAction="#onRefreshDealerClicked"
+                            style="-fx-background-color: #1A3A6B; -fx-text-fill: white; -fx-padding: 8px 15px; -fx-background-radius: 4px; -fx-font-weight: bold;"/>
+                </HBox>
+
+                <TableView fx:id="dealersTable" VBox.vgrow="ALWAYS"
+                           style="-fx-background-color: white; -fx-border-color: #DDDDDD;">
+                    <columns>
+                        <TableColumn fx:id="colDealerId" text="Dealer ID" prefWidth="100"/>
+                        <TableColumn fx:id="colDealerName" text="Dealer Name" prefWidth="220"/>
+                        <TableColumn fx:id="colDealerPhone" text="Phone" prefWidth="150"/>
+                        <TableColumn fx:id="colDealerLocation" text="Location" prefWidth="200"/>
+                    </columns>
+                </TableView>
+
+            </VBox>
         </Tab>
 
         <Tab text="Point of Sale">
