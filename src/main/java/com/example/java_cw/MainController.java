@@ -6,6 +6,7 @@ import com.example.java_cw.service.DealerService;
 import com.example.java_cw.service.InventoryService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -136,6 +137,8 @@ public class MainController implements Initializable {
         }
 
         List<Part> results = inventoryService.searchParts(keyword, category, minPrice, maxPrice);
+        List<Part> sortedResults = inventoryService.sortParts(results);
+
         ObservableList<Part> observableList = FXCollections.observableArrayList(results);
         inventoryTable.setItems(observableList);
 
@@ -275,6 +278,11 @@ public class MainController implements Initializable {
         TextField imageField = new TextField();
         imageField.setPromptText("eg: image.jpg");
 
+        Label errorLabel = new Label();
+        errorLabel.setStyle("-fx-text-fill: #CC2229; -fx-font-weight: bold;");
+        errorLabel.setWrapText(true);
+        errorLabel.setMaxWidth(300);
+
         if (existingPart != null) {
             partIdField.setText(existingPart.getPartId());
             partIdField.setEditable(false);
@@ -307,6 +315,25 @@ public class MainController implements Initializable {
 
         dialog.getDialogPane().setContent(grid);
 
+        Button saveButton = (Button) dialog.getDialogPane().lookupButton(saveButtonType);
+        saveButton.addEventFilter(ActionEvent.ACTION,event -> {
+            String error = validatePartFields(
+                    partIdField.getText().trim(),
+                    partNameField.getText().trim(),
+                    priceField.getText().trim(),
+                    quantityField.getText().trim(),
+                    categoryBox.getValue(),
+                    dateField.getText().trim(),
+                    existingPart
+
+            );
+            if (error != null) {
+                errorLabel.setText(error);
+                event.consume();
+
+            }
+        });
+
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == saveButtonType) {
                 String partId = partIdField.getText().trim();
@@ -322,6 +349,15 @@ public class MainController implements Initializable {
                     showAlert("Part ID, Name, Price, Quantity and Category is required");
                     return null;
 
+                }
+
+                if (existingPart == null) {
+                    for (int i = 0; i < inventoryService.parts.size(); i++) {
+                        if (inventoryService.parts.get(i).getPartId().equalsIgnoreCase(partId)) {
+                            showAlert("Part ID '" + partId + "' already exists. Please use a unique ID");
+                            return null;
+                        }
+                    }
                 }
                     double price = 0;
                     int quantity = 0;
@@ -369,6 +405,52 @@ public class MainController implements Initializable {
                     refreshLowStock();
                 });
         }
+        public String validatePartFields(String partId,String partName,String priceText, String quantityText, String category, String dateAdded, Part existingPart) {
+            if (partId.isEmpty() || partName.isEmpty() || priceText.isEmpty() || quantityText.isEmpty() || category == null) {
+                return "Part ID, Name, Price, Quantity and Category is required.";
+
+            }
+            if (existingPart == null) {
+                for (int i = 0; i < inventoryService.parts.size(); i++) {
+                    if(inventoryService.parts.get(i).getPartId().equalsIgnoreCase(partId)) {
+                        return "Part ID " + partId + " already exists. Please use a unique ID.";
+                    }
+                }
+            }
+            double price;
+            try {
+                price = Double.parseDouble(priceText);
+            } catch (NumberFormatException e) {
+                return "Price must be a valid number.";
+
+            }
+            if (price <= 0) {
+                return "Price must be greater than zero.";
+
+            }
+            int quantity;
+            try {
+                quantity = Integer.parseInt(quantityText);
+            } catch (NumberFormatException e) {
+                return "Quantity must be a valid whole number.";
+            }
+            if (quantity < 0) {
+                return "Quantity cannot be negative";
+            }
+
+            if (!dateAdded.isEmpty() && !isValidDate(dateAdded)) {
+                return "Date must be in DD-MM-YYYY format and be a real date (e.g. 15-09-2023).";
+            }
+            return null;
+        }
+
+        public boolean isValidDate(String dateText) {
+            if (!dateText.matches("\\d{2}-\\d{2}-\\d{4}")) {
+                return false;
+            }
+            return true;
+        }
+
         public void onSetThresholdClicked() {
             String text = thresholdField.getText().trim();
 

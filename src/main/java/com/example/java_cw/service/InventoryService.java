@@ -54,6 +54,7 @@ public class InventoryService {
         for (int i = 0; i < parts.size(); i ++) {
             if(parts.get(i).getPartId().equals(partId)) {
                     parts.set(i,updatedPart);
+                    AuditLogger.log(auditLogPath,"UPDATE",updatedPart.getPartId(),"Qty: " + updatedPart.getQuantity());
                     saveToFile();
                     return;
             }
@@ -91,28 +92,33 @@ public class InventoryService {
         return lowStock;
     }
     public List<Part> getSortedParts() {
-        List<Part> sorted = new ArrayList<>(parts);
+        return sortParts(parts);
 
-        for (int i = 0; i < sorted.size()  -1; i++) {
-            for (int j = 0; j < sorted.size()-i-1; j++) {
+    }
+
+    public List<Part> sortParts(List<Part> partsToSort) {
+        List<Part> sorted = new ArrayList<>(partsToSort);
+
+        for (int i = 0; i < sorted.size() -1; i++) {
+            for(int j = 0; j < sorted.size()-i-1; j++) {
                 Part a = sorted.get(j);
                 Part b = sorted.get(j+1);
 
-                int categoryCompare = a.getCategory().toLowerCase() .compareTo(b.getCategory().toLowerCase());
+                int categoryCompare = a.getCategory().toLowerCase().compareTo(b.getCategory().toLowerCase());
 
-                if (categoryCompare > 0) {
+                if (categoryCompare > 0 ) {
                     sorted.set(j,b);
                     sorted.set(j+1,a);
-                }else if (categoryCompare == 0) {
+                } else if(categoryCompare == 0) {
                     if (a.getPartId().compareTo(b.getPartId()) > 0) {
                         sorted.set(j,b);
                         sorted.set(j+1,a);
-
                     }
                 }
             }
         }
         return sorted;
+
     }
     public void saveToFile() {
         try {
