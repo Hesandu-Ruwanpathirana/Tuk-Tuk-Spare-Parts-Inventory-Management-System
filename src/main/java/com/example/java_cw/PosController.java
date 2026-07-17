@@ -19,7 +19,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 
-public class PosController implements Initializable{
+public class PosController implements Initializable {
     @FXML
     private ComboBox<Part> partSelector;
     @FXML
@@ -29,13 +29,13 @@ public class PosController implements Initializable{
     @FXML
     private TableView<CartItem> cartTable;
     @FXML
-    private TableColumn<CartItem,String> colCartPartName;
+    private TableColumn<CartItem, String> colCartPartName;
     @FXML
-    private TableColumn<CartItem,Integer> colCartQty;
+    private TableColumn<CartItem, Integer> colCartQty;
     @FXML
-    private TableColumn<CartItem,Double> colCartPrice;
+    private TableColumn<CartItem, Double> colCartPrice;
     @FXML
-    private TableColumn<CartItem,Double> colCartSubTotal;
+    private TableColumn<CartItem, Double> colCartSubTotal;
     @FXML
     private Label cartTotalLabel;
 
@@ -51,21 +51,22 @@ public class PosController implements Initializable{
         colCartSubTotal.setCellValueFactory(d -> new SimpleDoubleProperty(d.getValue().getSubTotal()).asObject());
 
 
-    partSelector.setConverter(new StringConverter<Part>() {
-        @Override
-        public String toString(Part p) {
-            if (p == null) {
-                return "";
+        partSelector.setConverter(new StringConverter<Part>() {
+            @Override
+            public String toString(Part p) {
+                if (p == null) {
+                    return "";
+                }
+                return p.getPartId() + " - " + p.getPartName() + "(Stock: " + p.getQuantity() + ")";
             }
-            return p.getPartId() + " - " + p.getPartName() + "(Stock: " + p.getQuantity() + ")";
-        }
 
-        @Override
-        public Part fromString(String string) {
-            return null;
-        }
-    });
+            @Override
+            public Part fromString(String string) {
+                return null;
+            }
+        });
     }
+
     public void setServices(InventoryService inventoryService, Cart cart, String auditLogPath, Runnable onInventoryChanged) {
         this.inventoryService = inventoryService;
         this.cart = cart;
@@ -79,6 +80,7 @@ public class PosController implements Initializable{
     public void refreshPartSelector() {
         partSelector.setItems(FXCollections.observableArrayList(inventoryService.parts));
     }
+
     public void refreshCartTable() {
         cartTable.setItems(FXCollections.observableArrayList(cart.getItems()));
         cartTotalLabel.setText("Total: Rs. " + String.format("%.2f", cart.getTotal()));
@@ -102,7 +104,7 @@ public class PosController implements Initializable{
             return;
 
         }
-        String result = cart.addItem(selectedPart,quantity);
+        String result = cart.addItem(selectedPart, quantity);
         if (!result.equals("success")) {
             posErrorLabel.setText(result);
             return;
@@ -112,28 +114,37 @@ public class PosController implements Initializable{
         refreshCartTable();
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @FXML
+    public void onRemoveFromCartClicked() {
+        CartItem selected = cartTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            posErrorLabel.setText("Select a cart item first to remove it.");
+            return;
+        }
+        cart.removeItem(selected.getPart().getPartId());
+        refreshCartTable();
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
