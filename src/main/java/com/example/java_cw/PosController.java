@@ -39,6 +39,48 @@ public class PosController implements Initializable{
     @FXML
     private Label cartTotalLabel;
 
+    private InventoryService inventoryService;
+    private Cart cart;
+    private String auditLogPath;
+    private Runnable onInventoryChanged;
+
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        colCartPartName.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getPart().getPartName()));
+        colCartQty.setCellValueFactory((d -> new SimpleIntegerProperty(d.getValue().getQuantity()).asObject()));
+        colCartPrice.setCellValueFactory(d -> new SimpleDoubleProperty(d.getValue().getPart().getPrice()).asObject());
+        colCartSubTotal.setCellValueFactory(d -> new SimpleDoubleProperty(d.getValue().getSubTotal()).asObject());
+
+
+    partSelector.setConverter(new StringConverter<Part>() {
+        @Override
+        public String toString(Part p) {
+            if (p == null) {
+                return "";
+            }
+            return p.getPartId() + " - " + p.getPartName() + "(Stock: " + p.getQuantity() + ")";
+        }
+
+        @Override
+        public Part fromString(String string) {
+            return null;
+        }
+    });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
