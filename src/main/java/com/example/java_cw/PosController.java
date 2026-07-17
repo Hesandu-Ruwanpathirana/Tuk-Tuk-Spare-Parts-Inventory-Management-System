@@ -102,8 +102,9 @@ public class PosController implements Initializable {
         } catch (NumberFormatException e) {
             posErrorLabel.setText("Quantity must be a valid whole number.");
             return;
-
         }
+
+
         String result = cart.addItem(selectedPart, quantity);
         if (!result.equals("success")) {
             posErrorLabel.setText(result);
@@ -124,7 +125,39 @@ public class PosController implements Initializable {
         cart.removeItem(selected.getPart().getPartId());
         refreshCartTable();
     }
+    @FXML
+    public void onClearCartClicked() {
+        cart.clear();
+        refreshCartTable();
+    }
+    @FXML
+    public void onCheckoutClicked() {
+        String result = cart.checkout(inventoryService,auditLogPath);
+
+        if (result.equals("Cart is Empty")) {
+            posErrorLabel.setText("Cannot checkout an Empty Cart.");
+            return;
+
+        }
+        posErrorLabel.setText("");
+        refreshCartTable();
+        refreshPartSelector();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Checkout");
+        alert.setHeaderText(null);
+        alert.setContentText(result);
+        alert.showAndWait();
+
+        if (onInventoryChanged != null) {
+            onInventoryChanged.run();
+        }
+
+    }
 }
+
+
+
 
 
 

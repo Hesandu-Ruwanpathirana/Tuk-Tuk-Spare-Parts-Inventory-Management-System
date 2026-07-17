@@ -81,7 +81,7 @@ public class Cart {
 
     public String checkout(InventoryService inventoryService, String auditLogPath) {
         if (items.isEmpty()) {
-            return "Cart is empty";
+            return "Cart is Empty";
         }
 
         for (int i = 0; i < items.size(); i++) {
@@ -96,6 +96,9 @@ public class Cart {
         inventoryService.saveToFile();
         items.clear();
         return "Checkout successful";
+    }
+    public List<CartItem> getItems() {
+        return items;
     }
 
     public int getTotalItems() {
