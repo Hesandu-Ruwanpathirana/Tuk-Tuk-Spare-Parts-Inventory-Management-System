@@ -84,6 +84,29 @@ public class PosController implements Initializable{
         cartTotalLabel.setText("Total: Rs. " + String.format("%.2f", cart.getTotal()));
     }
 
+    @FXML
+    public void onAddToCartClicked() {
+        posErrorLabel.setText("");
+
+        Part selectedPart = partSelector.getValue();
+        if (selectedPart == null) {
+            posErrorLabel.setText("Please select a part first.");
+            return;
+        }
+        String quantityText = quantityField.getText().trim();
+        int quantity;
+        try {
+            quantity = Integer.parseInt(quantityText);
+        } catch (NumberFormatException e) {
+            posErrorLabel.setText("Quantity must be a valid whole number.");
+            return;
+
+        }
+    }
+
+
+
+
 
 
 
