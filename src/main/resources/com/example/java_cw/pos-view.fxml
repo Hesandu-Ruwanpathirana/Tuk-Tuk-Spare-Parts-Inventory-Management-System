@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.java_cw.PosController"
+      spacing="10" style="-fx-padding: 15px; -fx-background-color: #F5F5F5;">
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Part:" minWidth="50"/>
+        <ComboBox fx:id="partSelector" prefWidth="300" promptText="Select a part"/>
+        <Label text="Quantity:" minWidth="70"/>
+        <TextField fx:id="quantityField" prefWidth="80" promptText="e.g. 2"/>
+        <Button text="Add to Cart" onAction="#onAddToCartClicked"
+                style="-fx-background-color: #1A3A6B; -fx-text-fill: white; -fx-padding: 8px 15px; -fx-background-radius: 4px; -fx-font-weight: bold;"/>
+    </HBox>
+
+    <Label fx:id="posErrorLabel" style="-fx-text-fill: #CC2229; -fx-font-weight: bold;" wrapText="true"/>
+
+    <TableView fx:id="cartTable" VBox.vgrow="ALWAYS"
+               style="-fx-background-color: white; -fx-border-color: #DDDDDD;">
+        <columns>
+            <TableColumn fx:id="colCartPartName" text="Part Name" prefWidth="220"/>
+            <TableColumn fx:id="colCartQuantity" text="Qty" prefWidth="80"/>
+            <TableColumn fx:id="colCartUnitPrice" text="Unit Price (Rs.)" prefWidth="130"/>
+            <TableColumn fx:id="colCartSubtotal" text="Subtotal (Rs.)" prefWidth="130"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="20" alignment="CENTER_LEFT"
+          style="-fx-background-color: #1A3A6B; -fx-padding: 10px; -fx-background-radius: 5px;">
+        <Label fx:id="cartTotalLabel" text="Total: Rs. 0.00"
+               style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Remove Selected" onAction="#onRemoveFromCartClicked"
+                style="-fx-background-color: white; -fx-text-fill: #1A3A6B; -fx-font-weight: bold; -fx-padding: 6px 15px; -fx-background-radius: 4px;"/>
+        <Button text="Clear Cart" onAction="#onClearCartClicked"
+                style="-fx-background-color: #CC2229; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 6px 15px; -fx-background-radius: 4px;"/>
+        <Button text="Checkout" onAction="#onCheckoutClicked"
+                style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 6px 15px; -fx-background-radius: 4px;"/>
+    </HBox>
+
+</VBox>
