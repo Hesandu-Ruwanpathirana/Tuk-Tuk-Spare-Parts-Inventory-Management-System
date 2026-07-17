@@ -66,6 +66,26 @@ public class PosController implements Initializable{
         }
     });
     }
+    public void setServices(InventoryService inventoryService, Cart cart, String auditLogPath, Runnable onInventoryChanged) {
+        this.inventoryService = inventoryService;
+        this.cart = cart;
+        this.auditLogPath = auditLogPath;
+        this.onInventoryChanged = onInventoryChanged;
+
+        refreshPartSelector();
+        refreshCartTable();
+    }
+
+    public void refreshPartSelector() {
+        partSelector.setItems(FXCollections.observableArrayList(inventoryService.parts));
+    }
+    public void refreshCartTable() {
+        cartTable.setItems(FXCollections.observableArrayList(cart.getItems()));
+        cartTotalLabel.setText("Total: Rs. " + String.format("%.2f", cart.getTotal()));
+    }
+
+
+
 
 
 
