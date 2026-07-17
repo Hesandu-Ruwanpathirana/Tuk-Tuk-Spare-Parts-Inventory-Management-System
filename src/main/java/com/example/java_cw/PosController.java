@@ -102,7 +102,16 @@ public class PosController implements Initializable{
             return;
 
         }
+        String result = cart.addItem(selectedPart,quantity);
+        if (!result.equals("success")) {
+            posErrorLabel.setText(result);
+            return;
+        }
+
+        quantityField.clear();
+        refreshCartTable();
     }
+
 
 
 
