@@ -65,6 +65,9 @@ public class MainController implements Initializable {
     @FXML private TableColumn<Dealer, String> colDealerPhone;
     @FXML private TableColumn<Dealer, String> colDealerLocation;
 
+    @FXML
+    private PosController posViewController;
+
     private InventoryService inventoryService;
     private DealerService dealerService;
     private Cart cart;
@@ -93,9 +96,14 @@ public class MainController implements Initializable {
 
         refreshLowStock();
 
+        posViewController.setServices(inventoryService, cart, auditPath, () -> {
+            refreshTable();
+            refreshLowStock();
+        });
 
         System.out.println("Loaded " + inventoryService.getTotalCount() + " parts");
         System.out.println("Loaded " + dealerService.getTotalDealers() + " dealers");
+
     }
 
 
@@ -145,7 +153,7 @@ public class MainController implements Initializable {
         List<Part> results = inventoryService.searchParts(keyword, category, minPrice, maxPrice);
         List<Part> sortedResults = inventoryService.sortParts(results);
 
-        ObservableList<Part> observableList = FXCollections.observableArrayList(results);
+        ObservableList<Part> observableList = FXCollections.observableArrayList(sortedResults);
         inventoryTable.setItems(observableList);
 
         totalCountLabel.setText("Results: " + results.size());
