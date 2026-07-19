@@ -79,7 +79,7 @@ public class MainController implements Initializable {
         String dealersPath = "src/main/resources/com/example/java_cw/dealers_legacy.txt";
         String auditPath = "src/main/resources/com/example/java_cw/audit_log.txt";
 
-        inventoryService = new InventoryService(inventoryPath, auditPath, 5);
+        inventoryService = new InventoryService(inventoryPath, auditPath, 10);
         dealerService = new DealerService(dealersPath);
         cart = new Cart();
 
@@ -505,9 +505,6 @@ public class MainController implements Initializable {
             inventoryService.lowStockThreshold = threshold;
             refreshLowStock();
 
-            List<Part> lowStockParts = inventoryService.getLowStockParts();
-            ObservableList<Part> observableList = FXCollections.observableArrayList(lowStockParts);
-            inventoryTable.setItems(observableList);
 
         }
 
