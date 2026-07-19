@@ -25,14 +25,14 @@
         </ImageView>
         <VBox spacing="4">
             <Label style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: white;" text="TUK TUK SPARE PARTS" />
-            <Label style="-fx-font-size: 18px; -fx-text-fill: #CC2229; -fx-font-weight: bold;" text="~ MALABE ~" />
+            <Label style="-fx-font-size: 18px; -fx-text-fill: red; -fx-font-weight: bold;" text=" MALABE " />
         </VBox>
     </HBox>
 
-    <TabPane fx:id="mainTabPane" style="-fx-background-color: #F5F5F5;" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+    <TabPane fx:id="mainTabPane" style="-fx-background-color: white;" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
 
         <Tab text="Inventory">
-            <VBox spacing="10" style="-fx-padding: 15px; -fx-background-color: #F5F5F5;">
+            <VBox spacing="10" style="-fx-padding: 15px; -fx-background-color: white;">
 
                 <HBox alignment="CENTER_LEFT" spacing="10">
                     <Label minWidth="150" text="Low Stock Threshold:">
@@ -43,9 +43,9 @@
                     <Button minWidth="80" onAction="#onSetThresholdClicked" text="Apply" />
                 </HBox>
 
-                <VBox fx:id="lowStockBox" spacing="5" style="-fx-background-color: #FFF3CD;                              -fx-border-color: #CC2229;                              -fx-border-width: 1px;                              -fx-padding: 10px;                              -fx-background-radius: 5px;">
+                <VBox fx:id="lowStockBox" spacing="5" style="-fx-background-color: #E6E6E6;                              -fx-border-color: #CC2229;                              -fx-border-width: 1px;                              -fx-padding: 10px;                              -fx-background-radius: 5px;">
                     <Label style="-fx-font-weight: bold; -fx-text-fill: #CC2229; -fx-font-size: 13px;" text="LOW STOCK WARNING" />
-                    <Label fx:id="lowStockLabel" style="-fx-text-fill: #856404;" text="Loading..." />
+                    <Label fx:id="lowStockLabel" style="-fx-text-fill: black;" text="Loading..." />
 
                 </VBox>
 
