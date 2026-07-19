@@ -21,9 +21,9 @@
                style="-fx-background-color: white; -fx-border-color: #DDDDDD;">
         <columns>
             <TableColumn fx:id="colCartPartName" text="Part Name" prefWidth="220"/>
-            <TableColumn fx:id="colCartQuantity" text="Qty" prefWidth="80"/>
-            <TableColumn fx:id="colCartUnitPrice" text="Unit Price (Rs.)" prefWidth="130"/>
-            <TableColumn fx:id="colCartSubtotal" text="Subtotal (Rs.)" prefWidth="130"/>
+            <TableColumn fx:id="colCartQty" text="Qty" prefWidth="80"/>
+            <TableColumn fx:id="colCartPrice" text="Unit Price (Rs.)" prefWidth="130"/>
+            <TableColumn fx:id="colCartSubTotal" text="Subtotal (Rs.)" prefWidth="130"/>
         </columns>
     </TableView>
 

@@ -112,6 +112,7 @@
         <Tab text="Point of Sale">
             <VBox fx:id="posPane" spacing="10" style="-fx-padding: 15px; -fx-background-color: #F5F5F5;" />
             <fx:include source="pos-view.fxml" fx:id="posView"/>
+
         </Tab>
 
     </TabPane>
