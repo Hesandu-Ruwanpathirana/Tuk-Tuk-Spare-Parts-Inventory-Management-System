@@ -25,6 +25,9 @@
             <TableColumn fx:id="colCartPrice" text="Unit Price (Rs.)" prefWidth="130"/>
             <TableColumn fx:id="colCartSubTotal" text="Subtotal (Rs.)" prefWidth="130"/>
         </columns>
+        <placeholder>
+            <Label text = "Your cart is empty" style = "-fx-font-size: 14px;"/>
+        </placeholder>
     </TableView>
 
     <HBox spacing="20" alignment="CENTER_LEFT"
