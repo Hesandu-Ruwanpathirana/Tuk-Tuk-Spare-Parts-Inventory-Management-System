@@ -67,7 +67,7 @@ public class MainController implements Initializable {
     @FXML private TableColumn<Dealer, String> colDealerLocation;
 
     @FXML
-    private PosController posController;
+    private PosController posViewController;
 
     private InventoryService inventoryService;
     private DealerService dealerService;
@@ -96,6 +96,11 @@ public class MainController implements Initializable {
         refreshTable();
 
         refreshLowStock();
+
+        posViewController.setServices(inventoryService, cart, auditPath, () -> {
+            refreshTable();
+            refreshLowStock();
+        });
 
 
         System.out.println("Loaded " + inventoryService.getTotalCount() + " parts");
