@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import java.util.ArrayList;
 import javafx.scene.control.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -66,7 +67,7 @@ public class MainController implements Initializable {
     @FXML private TableColumn<Dealer, String> colDealerLocation;
 
     @FXML
-    private PosController posViewController;
+    private PosController posController;
 
     private InventoryService inventoryService;
     private DealerService dealerService;
@@ -79,7 +80,7 @@ public class MainController implements Initializable {
         String dealersPath = "src/main/resources/com/example/java_cw/dealers_legacy.txt";
         String auditPath = "src/main/resources/com/example/java_cw/audit_log.txt";
 
-        inventoryService = new InventoryService(inventoryPath, auditPath, 10);
+        inventoryService = new InventoryService(inventoryPath, auditPath, 20);
         dealerService = new DealerService(dealersPath);
         cart = new Cart();
 
@@ -96,14 +97,9 @@ public class MainController implements Initializable {
 
         refreshLowStock();
 
-        posViewController.setServices(inventoryService, cart, auditPath, () -> {
-            refreshTable();
-            refreshLowStock();
-        });
 
         System.out.println("Loaded " + inventoryService.getTotalCount() + " parts");
         System.out.println("Loaded " + dealerService.getTotalDealers() + " dealers");
-
     }
 
 
@@ -153,7 +149,7 @@ public class MainController implements Initializable {
         List<Part> results = inventoryService.searchParts(keyword, category, minPrice, maxPrice);
         List<Part> sortedResults = inventoryService.sortParts(results);
 
-        ObservableList<Part> observableList = FXCollections.observableArrayList(sortedResults);
+        ObservableList<Part> observableList = FXCollections.observableArrayList(results);
         inventoryTable.setItems(observableList);
 
         totalCountLabel.setText("Results: " + results.size());
@@ -502,9 +498,21 @@ public class MainController implements Initializable {
                 return;
 
             }
-            inventoryService.lowStockThreshold = threshold;
-            refreshLowStock();
+            List<Part> lowStockParts = new ArrayList<>();
+            for (int i = 0; i < inventoryService.parts.size(); i++) {
+                Part p = inventoryService.parts.get(i);
+                if (p.getQuantity() <= threshold) {
+                    lowStockParts.add(p);
 
+                }
+
+            }
+
+            ObservableList<Part> observableList = FXCollections.observableArrayList(lowStockParts);
+            inventoryTable.setItems(observableList);
+            inventoryTable.refresh();
+
+            totalCountLabel.setText("Low Stock Results: " + lowStockParts.size());
 
         }
 

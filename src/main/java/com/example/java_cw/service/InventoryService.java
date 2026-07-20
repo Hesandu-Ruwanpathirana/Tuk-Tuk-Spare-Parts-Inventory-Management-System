@@ -85,7 +85,7 @@ public class InventoryService {
         List<Part> lowStock = new ArrayList<>();
 
         for (int i = 0; i < parts.size(); i++) {
-            if(parts.get(i).getQuantity() <= lowStockThreshold) {
+            if(parts.get(i).getQuantity() <= 10) {
                 lowStock.add(parts.get(i));
             }
         }

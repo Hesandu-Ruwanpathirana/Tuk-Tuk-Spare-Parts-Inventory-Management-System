@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox style="-fx-background-color: #F5F5F5;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/26" fx:controller="com.example.java_cw.MainController">
+<VBox style="-fx-background-color: #F5F5F5;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.java_cw.MainController">
 
     <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-background-color: #1A3A6B; -fx-padding: 10px;">
         <ImageView fx:id="logoImage" fitHeight="150" fitWidth="150" preserveRatio="true">
@@ -88,21 +88,17 @@
             <VBox spacing="10" style="-fx-padding: 15px; -fx-background-color: #F5F5F5;">
 
                 <HBox alignment="CENTER_LEFT" spacing="10">
-                    <Label text="Randomly Selected Dealers (sorted by location)"
-                           style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1A3A6B;"/>
-                    <Region HBox.hgrow="ALWAYS"/>
-                    <Button text="Select Dealers"
-                            onAction="#onRefreshDealerClicked"
-                            style="-fx-background-color: #1A3A6B; -fx-text-fill: white; -fx-padding: 8px 15px; -fx-background-radius: 4px; -fx-font-weight: bold;"/>
+                    <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1A3A6B;" text="Randomly Selected Dealers (sorted by location)" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button onAction="#onRefreshDealerClicked" style="-fx-background-color: #1A3A6B; -fx-text-fill: white; -fx-padding: 8px 15px; -fx-background-radius: 4px; -fx-font-weight: bold;" text="Select Dealers" />
                 </HBox>
 
-                <TableView fx:id="dealersTable" VBox.vgrow="ALWAYS"
-                           style="-fx-background-color: white; -fx-border-color: #DDDDDD;">
+                <TableView fx:id="dealersTable" style="-fx-background-color: white; -fx-border-color: #DDDDDD;" VBox.vgrow="ALWAYS">
                     <columns>
-                        <TableColumn fx:id="colDealerId" text="Dealer ID" prefWidth="100"/>
-                        <TableColumn fx:id="colDealerName" text="Dealer Name" prefWidth="220"/>
-                        <TableColumn fx:id="colDealerPhone" text="Phone" prefWidth="150"/>
-                        <TableColumn fx:id="colDealerLocation" text="Location" prefWidth="200"/>
+                        <TableColumn fx:id="colDealerId" prefWidth="100" text="Dealer ID" />
+                        <TableColumn fx:id="colDealerName" prefWidth="220" text="Dealer Name" />
+                        <TableColumn fx:id="colDealerPhone" prefWidth="150" text="Phone" />
+                        <TableColumn fx:id="colDealerLocation" prefWidth="200" text="Location" />
                     </columns>
                 </TableView>
 
@@ -111,7 +107,7 @@
 
         <Tab text="Point of Sale">
             <VBox fx:id="posPane" spacing="10" style="-fx-padding: 15px; -fx-background-color: #F5F5F5;" />
-            <fx:include source="pos-view.fxml" fx:id="posView"/>
+            <fx:include fx:id="posView" source="pos-view.fxml" />
 
         </Tab>
 
