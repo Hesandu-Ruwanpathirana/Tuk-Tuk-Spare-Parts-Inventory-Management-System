@@ -86,8 +86,19 @@ public class Cart {
 
         for (int i = 0; i < items.size(); i++) {
             CartItem item = items.get(i);
+            String partId = item.getPart().getPartId();
+            int quantityBought = item.getQuantity();
 
-            item.getPart().setQuantity(item.getPart().getQuantity() - item.getQuantity());
+            for (int j = 0; j < inventoryService.parts.size(); j++) {
+                Part inventoryPart = inventoryService.parts.get(j);
+
+                if(inventoryPart.getPartId().equals(partId)) {
+                    int newQuantity = inventoryPart.getQuantity() - quantityBought;
+                    inventoryPart.setQuantity(newQuantity);
+                    break;
+                }
+            }
+
 
             AuditLogger.log(
                     auditLogPath, "CHECKOUT", item.getPart().getPartId(), "Qty: " + item.getQuantity());
