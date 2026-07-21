@@ -48,6 +48,10 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<Part, String> colDate;
     @FXML
+    private TableColumn<Part,Void> colImage;
+    @FXML
+    private TableColumn<Part,Integer> colThreshold;
+    @FXML
     private TextField searchField;
     @FXML
     private ComboBox<String> categoryFilter;
@@ -68,6 +72,7 @@ public class MainController implements Initializable {
     @FXML private TableColumn<Dealer, String> colDealerName;
     @FXML private TableColumn<Dealer, String> colDealerPhone;
     @FXML private TableColumn<Dealer, String> colDealerLocation;
+
 
     @FXML
     private PosController posViewController;
