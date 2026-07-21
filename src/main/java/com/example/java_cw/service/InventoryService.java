@@ -13,12 +13,10 @@ public class InventoryService {
     public List<Part> parts;
     public String filePath;
     public String auditLogPath;
-    public int lowStockThreshold;
 
-    public InventoryService(String filePath, String auditLogPath, int lowStock ) {
+    public InventoryService(String filePath, String auditLogPath) {
         this.filePath = filePath;
         this.auditLogPath = auditLogPath;
-        this.lowStockThreshold = lowStock;
         this.parts = new ArrayList<>();
     }
 
@@ -85,7 +83,7 @@ public class InventoryService {
         List<Part> lowStock = new ArrayList<>();
 
         for (int i = 0; i < parts.size(); i++) {
-            if(parts.get(i).getQuantity() <= 10) {
+            if(parts.get(i).isLowStock()) {
                 lowStock.add(parts.get(i));
             }
         }
