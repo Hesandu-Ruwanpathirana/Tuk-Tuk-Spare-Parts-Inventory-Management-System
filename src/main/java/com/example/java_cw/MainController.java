@@ -23,6 +23,11 @@ import javafx.scene.layout.GridPane;
 import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 
 import java.util.Optional;
@@ -225,6 +230,42 @@ public class MainController implements Initializable {
 
         colDate.setCellValueFactory(data ->
                 new SimpleStringProperty(data.getValue().getDateAdded()));
+
+        colImage.setCellFactory(col -> new TableCell<Part, Void>() {
+            private final ImageView imageView = new ImageView();
+
+            {
+
+                imageView.setFitWidth(40);
+                imageView.setFitHeight(40);
+                imageView.setPreserveRatio(true);
+            }
+
+            public void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+                    return;
+                }
+                Part part = getTableView().getItems().get(getIndex());
+                String path = part.getImagePath();
+
+                if (path == null || path.isEmpty()) {
+                    setGraphic(null);
+                    return;
+                }
+                File imageFile = new File(path);
+                if (!imageFile.exists()) {
+                    setGraphic(null);
+                    return;
+                }
+                Image image = new Image(imageFile.toURI().toString(), 40, 40, true, true);
+                imageView.setImage(image);
+                setGraphic(imageView);
+
+            }
+        });
     }
 
     public void setUpDealerTableColumns() {
@@ -374,7 +415,7 @@ public class MainController implements Initializable {
         grid.add(new Label("Date Added:"),0,6);
         grid.add(dateField,1,6);
         grid.add(new Label("Image Path:"),0,7);
-        grid.add(imageField,1,7);
+        grid.add(imageBox,1,7);
         grid.add(new Label("Low Stock Threshold: "),0,8);
         grid.add(thresholdField,1,8);
         grid.add(errorLabel,1,9);
