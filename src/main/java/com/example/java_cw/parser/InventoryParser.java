@@ -74,7 +74,12 @@ public class InventoryParser {
                         imagePath = cleanImagePath(fields[7]);
                     }
 
-                    Part part = new Part(partId,partName,brand,price,quantity,category,dateAdded,imagePath);
+                    int lowStockThreshold = 10;
+                    if (fields.length > 8) {
+                        lowStockThreshold = cleanThreshold(fields[8]);
+                    }
+
+                    Part part = new Part(partId,partName,brand,price,quantity,category,dateAdded,imagePath,lowStockThreshold);
                     parts.add(part);
 
                 } catch (NumberFormatException e) {
@@ -108,6 +113,20 @@ public class InventoryParser {
             return Integer.parseInt(rawQuantity);
         } catch (NumberFormatException e) {
             return 0;
+        }
+    }
+    public static int cleanThreshold(String rawThreshold) {
+        rawThreshold = rawThreshold.replaceAll("[^0-9]","");
+        rawThreshold = rawThreshold.trim();
+
+        if (rawThreshold.isEmpty()) {
+            return 10;
+
+        }
+        try {
+            return Integer.parseInt(rawThreshold);
+        } catch (NumberFormatException e) {
+            return 10;
         }
     }
 

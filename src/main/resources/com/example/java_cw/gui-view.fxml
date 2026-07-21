@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+
 
 <VBox style="-fx-background-color: #F5F5F5;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.java_cw.MainController">
 
@@ -34,14 +34,6 @@
         <Tab text="Inventory">
             <VBox spacing="10" style="-fx-padding: 15px; -fx-background-color: white;">
 
-                <HBox alignment="CENTER_LEFT" spacing="10">
-                    <Label minWidth="150" text="Low Stock Threshold:">
-                  <font>
-                     <Font name="System Bold" size="13.0" />
-                  </font></Label>
-                    <TextField fx:id="thresholdField" prefWidth="100" promptText="eg: 10" />
-                    <Button minWidth="80" onAction="#onSetThresholdClicked" text="Apply" />
-                </HBox>
 
                 <VBox fx:id="lowStockBox" spacing="5" style="-fx-background-color: #E6E6E6;                              -fx-border-color: #CC2229;                              -fx-border-width: 1px;                              -fx-padding: 10px;                              -fx-background-radius: 5px;">
                     <Label style="-fx-font-weight: bold; -fx-text-fill: #CC2229; -fx-font-size: 13px;" text="LOW STOCK WARNING" />
