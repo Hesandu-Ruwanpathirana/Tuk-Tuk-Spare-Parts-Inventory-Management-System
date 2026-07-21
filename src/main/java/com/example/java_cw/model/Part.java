@@ -10,9 +10,10 @@ public class Part {
     private String category;
     private String dateAdded;
     private String imagePath;
+    private int lowStockThreshold;
 
 
-    public Part(String partId, String partName, String brand, double price, int quantity, String category, String dateAdded, String imagePath) {
+    public Part(String partId, String partName, String brand, double price, int quantity, String category, String dateAdded, String imagePath, int lowStockThreshold) {
 
         if (partId == null || partId.trim().isEmpty()) {
             throw new IllegalArgumentException("Part ID cannot be empty");
@@ -29,7 +30,10 @@ public class Part {
         if (category == null || category.trim().isEmpty()) {
             throw new IllegalArgumentException("Category cannot be empty");
         }
-         this.partId = partId;
+        if (lowStockThreshold < 0) {
+            throw new IllegalArgumentException("Low Stock threshold cannot be negative");
+        }
+        this.partId = partId;
         this.partName = partName;
         this.brand = brand;
         this.price = price;
@@ -37,6 +41,7 @@ public class Part {
         this.category = category;
         this.dateAdded = dateAdded;
         this.imagePath = imagePath;
+        this.lowStockThreshold = lowStockThreshold;
     }
 
     public String getPartId() {
@@ -96,7 +101,19 @@ public class Part {
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
+    public int getLowStockThreshold() {
+        return lowStockThreshold;
+    }
+    public void setLowStockThreshold(int lowStockThreshold) {
+        if (lowStockThreshold < 0) {
+            throw new IllegalArgumentException("Low Stock cannot be negative");
+        }
+        this.lowStockThreshold = lowStockThreshold;
+    }
+    public boolean isLowStock() {
+        return quantity < lowStockThreshold;
+    }
     public String toString() {
-        return partId + " | " + partName + " | " + brand + " | Rs." + price + " | Qty:" + quantity + " | " + category + " | " + dateAdded + " | " + imagePath;
+        return partId + " | " + partName + " | " + brand + " | Rs." + price + " | Qty:" + quantity + " | " + category + " | " + dateAdded + " | " + imagePath + " | Threshold: " + lowStockThreshold;
     }
 }

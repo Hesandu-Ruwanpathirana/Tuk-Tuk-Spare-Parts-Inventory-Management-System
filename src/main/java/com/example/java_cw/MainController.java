@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import java.io.File;
 import java.util.ArrayList;
 import javafx.scene.control.*;
 import javafx.beans.property.SimpleStringProperty;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.scene.layout.GridPane;
 import javafx.geometry.Insets;
+import javafx.stage.FileChooser;
 
 
 import java.util.Optional;
@@ -309,7 +311,18 @@ public class MainController implements Initializable {
         dateField.setPromptText("eg: 15-09-2009");
 
         TextField imageField = new TextField();
-        imageField.setPromptText("eg: image.jpg");
+        Button browseButton = new Button("Browse..");
+        browseButton.setOnAction(e -> {
+            FileChooser chooser = new FileChooser();
+            chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images","*.png","*.jpg","*.jpeg"));
+
+            File selected = chooser.showOpenDialog(dialog.getDialogPane().getScene().getWindow());
+
+            if(selected != null) {
+                imageField.setText(selected.getAbsolutePath());
+            }
+        });
+
 
         Label errorLabel = new Label();
         errorLabel.setStyle("-fx-text-fill: #CC2229; -fx-font-weight: bold;");
