@@ -268,7 +268,7 @@ public class MainController implements Initializable {
 
                 Stage popUpStage = new Stage();
                 popUpStage.setTitle(part.getPartName() + " - Image");
-                popUpStage.setScene(new Scene(popUpRoot,650,650));
+                popUpStage.setScene(new Scene(popUpRoot,700,500));
                 popUpStage.show();
 
             }
@@ -306,7 +306,6 @@ public class MainController implements Initializable {
                 setGraphic(imageView);
 
                 setOnMouseClicked(e -> {
-                    System.out.println("Cell clicked");
                     showImagePopUp(part);
                 });
             }
@@ -417,8 +416,11 @@ public class MainController implements Initializable {
                 imageField.setText(selected.getAbsolutePath());
             }
         });
+        Button removeButton = new Button("Remove");
+        removeButton.setOnAction(e ->
+                imageField.clear());
 
-        HBox imageBox = new HBox(5,imageField,browseButton);
+        HBox imageBox = new HBox(5,imageField,browseButton,removeButton);
 
         TextField thresholdField = new TextField();
         thresholdField.setPromptText("eg: 10");
