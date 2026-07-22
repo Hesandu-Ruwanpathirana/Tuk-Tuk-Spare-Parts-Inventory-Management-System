@@ -408,6 +408,8 @@ public class MainController implements Initializable {
         Button browseButton = new Button("Browse..");
         browseButton.setOnAction(e -> {
             FileChooser chooser = new FileChooser();
+
+            chooser.setInitialDirectory(new File(System.getProperty("user.home"),"Pictures"));
             chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images","*.png","*.jpg","*.jpeg"));
 
             File selected = chooser.showOpenDialog(dialog.getDialogPane().getScene().getWindow());
