@@ -5,6 +5,7 @@ import com.example.java_cw.model.Part;
 import com.example.java_cw.model.Dealer;
 import com.example.java_cw.service.DealerService;
 import com.example.java_cw.service.InventoryService;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -231,6 +232,9 @@ public class MainController implements Initializable {
         colDate.setCellValueFactory(data ->
                 new SimpleStringProperty(data.getValue().getDateAdded()));
 
+        colImage.setCellValueFactory(param ->
+                new SimpleObjectProperty<>(null));
+
         colImage.setCellFactory(col -> new TableCell<Part, Void>() {
             private final ImageView imageView = new ImageView();
 
@@ -239,31 +243,72 @@ public class MainController implements Initializable {
                 imageView.setFitWidth(40);
                 imageView.setFitHeight(40);
                 imageView.setPreserveRatio(true);
+                imageView.setStyle("-fx-cursor: hand;");
+
             }
 
+            public void showImagePopUp(Part part) {
+                File imageFile = new File(part.getImagePath());
+                if (!imageFile.exists()) {
+                    showAlert("Image file not found:\n");
+                    return;
+
+                }
+                Image fullImage = new Image(imageFile.toURI().toString());
+                ImageView fullView = new ImageView(fullImage);
+                fullView.setFitWidth(600);
+                fullView.setFitHeight(600);
+                fullView.setPreserveRatio(true);
+
+
+
+
+                VBox popUpRoot = new VBox(fullView);
+                popUpRoot.setStyle("-fx-padding: 10px; -fx-background-color: white;");
+
+                Stage popUpStage = new Stage();
+                popUpStage.setTitle(part.getPartName() + " - Image");
+                popUpStage.setScene(new Scene(popUpRoot,650,650));
+                popUpStage.show();
+
+            }
+
+            @Override
             public void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
 
-                if (empty) {
+                if (empty || getIndex() >= getTableView().getItems().size()) {
                     setGraphic(null);
+                    setOnMouseClicked(null);
                     return;
                 }
+
                 Part part = getTableView().getItems().get(getIndex());
+
                 String path = part.getImagePath();
 
                 if (path == null || path.isEmpty()) {
                     setGraphic(null);
+                    setOnMouseClicked(null);
                     return;
                 }
+
                 File imageFile = new File(path);
+
                 if (!imageFile.exists()) {
                     setGraphic(null);
+                    setOnMouseClicked(null);
                     return;
                 }
+
                 Image image = new Image(imageFile.toURI().toString(), 40, 40, true, true);
                 imageView.setImage(image);
                 setGraphic(imageView);
 
+                setOnMouseClicked(e -> {
+                    System.out.println("Cell clicked");
+                    showImagePopUp(part);
+                });
             }
         });
     }
