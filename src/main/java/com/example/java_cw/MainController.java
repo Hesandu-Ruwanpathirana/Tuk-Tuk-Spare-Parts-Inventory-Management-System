@@ -12,7 +12,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import java.io.File;
-import java.util.ArrayList;
 import javafx.scene.control.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -268,7 +267,7 @@ public class MainController implements Initializable {
 
                 Stage popUpStage = new Stage();
                 popUpStage.setTitle(part.getPartName() + " - Image");
-                popUpStage.setScene(new Scene(popUpRoot,700,500));
+                popUpStage.setScene(new Scene(popUpRoot,700,700));
                 popUpStage.show();
 
             }
@@ -310,7 +309,9 @@ public class MainController implements Initializable {
                 });
             }
         });
+        colThreshold.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getLowStockThreshold()).asObject());
     }
+
 
     public void setUpDealerTableColumns() {
         colDealerId.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDealerId()));
