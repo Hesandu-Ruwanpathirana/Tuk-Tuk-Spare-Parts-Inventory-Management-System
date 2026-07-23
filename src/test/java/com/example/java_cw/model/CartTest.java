@@ -57,13 +57,15 @@ class CartTest {
     @Test
     void addItem() {
             String result = cart.addItem(enginePart, 2);
-
             assertEquals("success", result);
             assertEquals(1, cart.getTotalItems());
     }
 
     @Test
     void removeItem() {
+        cart.addItem(enginePart, 2);
+        cart.removeItem(enginePart.getPartId());
+        assertTrue(cart.isEmpty());
     }
 
     @Test
