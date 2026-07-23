@@ -8,10 +8,19 @@ class DealerTest {
 
     @Test
     void getDealerId() {
+        Dealer dealer = new Dealer(
+                "D001",
+                "ABC Motors",
+                "0771234567",
+                "Colombo"
+        );
+
+        assertEquals("D001", dealer.getDealerId());
     }
 
     @Test
     void getDealerName() {
+
     }
 
     @Test
