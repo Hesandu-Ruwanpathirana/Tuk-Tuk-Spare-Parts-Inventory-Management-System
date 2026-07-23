@@ -26,6 +26,18 @@ class InventoryServiceTest {
 
     @Test
     void deletePart() {
+        InventoryService service = new InventoryService("test.txt", "audit.txt");
+
+        Part part = new Part(
+                "P001","Brake Pad","TVS",
+                1000,10,"brakes",
+                "01-01-2025","",5);
+
+        service.addPart(part);
+
+        service.deletePart("P001");
+
+        assertEquals(0, service.parts.size());
     }
 
     @Test
