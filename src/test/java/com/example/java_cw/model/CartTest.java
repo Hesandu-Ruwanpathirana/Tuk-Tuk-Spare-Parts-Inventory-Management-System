@@ -92,6 +92,10 @@ class CartTest {
 
     @Test
     void hasCategory() {
+        cart.addItem(enginePart, 1);
+
+        assertTrue(cart.hasCategory("engine"));
+        assertFalse(cart.hasCategory("bodywork"));
     }
 
     @Test
