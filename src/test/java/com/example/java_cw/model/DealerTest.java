@@ -44,9 +44,30 @@ class DealerTest {
 
     @Test
     void getDealerLocation() {
+            Dealer dealer = new Dealer(
+                    "D001",
+                    "ABC Motors",
+                    "0771234567",
+                    "Colombo"
+            );
+
+            assertEquals("Colombo", dealer.getDealerLocation());
     }
 
     @Test
     void testToString() {
+        Dealer dealer = new Dealer(
+                "D001",
+                "ABC Motors",
+                "0771234567",
+                "Colombo"
+        );
+
+        String text = dealer.toString();
+
+        assertTrue(text.contains("D001"));
+        assertTrue(text.contains("ABC Motors"));
+        assertTrue(text.contains("0771234567"));
+        assertTrue(text.contains("Colombo"));
     }
 }
