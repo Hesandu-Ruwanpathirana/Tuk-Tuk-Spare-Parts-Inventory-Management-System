@@ -55,5 +55,16 @@ class CartItemTest {
 
     @Test
     void testToString() {
+            Part part = new Part(
+                    "P001","Brake Pad","TVS",
+                    10000,10,"brakes",
+                    "01-01-2025","",5);
+
+            CartItem item = new CartItem(part,2);
+
+            String text = item.toString();
+
+            assertTrue(text.contains("Brake Pad"));
+            assertTrue(text.contains("Rs.20000.0"));
     }
 }
