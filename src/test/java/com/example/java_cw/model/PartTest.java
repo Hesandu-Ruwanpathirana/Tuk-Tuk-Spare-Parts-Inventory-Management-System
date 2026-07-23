@@ -8,10 +8,19 @@ class PartTest {
 
     @Test
     void setPrice() {
+            Part part = new Part(
+                    "P001", "Brake Pad", "TVS",
+                    1000, 10, "brakes",
+                    "01-01-2025", "", 5);
+
+            part.setPrice(2000);
+
+            assertEquals(2000, part.getPrice());
     }
 
     @Test
     void setQuantity() {
+
     }
 
     @Test
