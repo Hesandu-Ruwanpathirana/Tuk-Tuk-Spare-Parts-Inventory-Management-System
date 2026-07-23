@@ -21,12 +21,7 @@ public class Dealer {
     public String getDealerName() {
         return dealerName;
     }
-    public void setPartName(String partName) {
-        if (partName == null || partName.trim().isEmpty()) {
 
-
-        }
-    }
     public String getDealerPhone() {
         return dealerPhone;
     }
