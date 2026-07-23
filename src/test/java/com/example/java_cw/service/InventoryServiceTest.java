@@ -102,6 +102,26 @@ class InventoryServiceTest {
 
     @Test
     void sortParts() {
+        InventoryService service = new InventoryService("test.txt","audit.txt");
+
+        service.addPart(new Part(
+                "P002","Battery","Exide",
+                5000,5,"electrical",
+                "01-01-2025","",5));
+
+        service.addPart(new Part(
+                "P001","Brake Pad","TVS",
+                1000,10,"brakes",
+                "01-01-2025","",5));
+
+        List<Part> sorted =
+                service.sortParts(service.parts);
+
+        assertEquals("brakes",
+                sorted.get(0).getCategory());
+
+        assertEquals("electrical",
+                sorted.get(1).getCategory());
     }
 
     @Test
