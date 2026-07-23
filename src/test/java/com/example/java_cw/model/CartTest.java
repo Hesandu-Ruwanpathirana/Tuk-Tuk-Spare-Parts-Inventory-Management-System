@@ -86,6 +86,8 @@ class CartTest {
 
     @Test
     void getTotal() {
+        cart.addItem(enginePart, 3);
+        assertEquals(2850.0, cart.getTotal());
     }
 
     @Test
