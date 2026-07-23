@@ -126,6 +126,20 @@ class InventoryServiceTest {
 
     @Test
     void getTotalValue() {
+        InventoryService service = new InventoryService("test.txt","audit.txt");
+
+        service.addPart(new Part(
+                "P001","Brake Pad","TVS",
+                1000,2,"brakes",
+                "01-01-2025","",5));
+
+        service.addPart(new Part(
+                "P002","Battery","Exide",
+                5000,1,"electrical",
+                "01-01-2025","",5));
+
+        assertEquals(7000,
+                service.getTotalValue());
     }
 
     @Test
