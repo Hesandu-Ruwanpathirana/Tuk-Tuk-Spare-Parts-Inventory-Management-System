@@ -71,5 +71,11 @@ class PartTest {
 
     @Test
     void isLowStock() {
+        Part part = new Part(
+                "P001", "Brake Pad", "TVS",
+                1000, 2, "brakes",
+                "01-01-2025", "", 5);
+
+        assertTrue(part.isLowStock());
     }
 }
