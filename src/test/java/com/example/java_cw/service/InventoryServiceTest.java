@@ -11,6 +11,17 @@ class InventoryServiceTest {
 
     @Test
     void addPart() {
+        InventoryService service = new InventoryService("test.txt", "audit.txt");
+
+        Part part = new Part(
+                "P001","Brake Pad","TVS",
+                1000,10,"brakes",
+                "01-01-2025","",5);
+
+        service.addPart(part);
+
+        assertEquals(1, service.parts.size());
+        assertEquals("P001", service.parts.get(0).getPartId());
     }
 
     @Test
