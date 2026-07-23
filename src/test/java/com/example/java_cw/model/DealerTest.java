@@ -32,6 +32,14 @@ class DealerTest {
 
     @Test
     void getDealerPhone() {
+        Dealer dealer = new Dealer(
+                "D001",
+                "ABC Motors",
+                "0771234567",
+                "Colombo"
+        );
+        assertEquals("0771234567",dealer.getDealerPhone());
+
     }
 
     @Test
