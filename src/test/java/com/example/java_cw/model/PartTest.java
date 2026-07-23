@@ -45,9 +45,15 @@ class PartTest {
 
     @Test
     void setLowStockThreshold() {
+
+
     }
 
     @Test
     void testToString() {
+    }
+
+    @Test
+    void isLowStock() {
     }
 }
