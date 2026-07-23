@@ -1,5 +1,6 @@
 package com.example.java_cw.model;
 
+import com.example.java_cw.service.InventoryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -100,5 +101,16 @@ class CartTest {
 
     @Test
     void checkout() {
+        InventoryService inventoryService = new InventoryService("test_inventory.txt", "test_audit.txt");
+
+        inventoryService.parts.add(enginePart);
+
+        cart.addItem(enginePart, 2);
+
+        String result = cart.checkout(inventoryService, "test_audit.txt");
+
+        assertEquals("Checkout successful", result);
+        assertEquals(8, enginePart.getQuantity());
+        assertTrue(cart.isEmpty());
     }
 }
