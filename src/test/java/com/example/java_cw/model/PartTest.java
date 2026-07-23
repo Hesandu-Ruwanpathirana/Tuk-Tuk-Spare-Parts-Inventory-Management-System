@@ -20,6 +20,15 @@ class PartTest {
 
     @Test
     void setQuantity() {
+        Part part = new Part(
+                "P001", "Brake Pad", "TVS",
+                1000, 10, "brakes",
+                "01-01-2025", "", 5);
+
+        part.setQuantity(25);
+
+        assertEquals(25, part.getQuantity());
+
 
     }
 
