@@ -79,6 +79,9 @@ class CartTest {
 
     @Test
     void isEmpty() {
+        assertTrue(cart.isEmpty());
+        cart.addItem(enginePart, 1);
+        assertFalse(cart.isEmpty());
     }
 
     @Test
