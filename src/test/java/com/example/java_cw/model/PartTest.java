@@ -45,7 +45,14 @@ class PartTest {
 
     @Test
     void setLowStockThreshold() {
+        Part part = new Part(
+                "P001", "Brake Pad", "TVS",
+                1000, 10, "brakes",
+                "01-01-2025", "", 5);
 
+        part.setLowStockThreshold(15);
+
+        assertEquals(15, part.getLowStockThreshold());
 
     }
 
