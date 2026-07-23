@@ -58,6 +58,15 @@ class PartTest {
 
     @Test
     void testToString() {
+        Part part = new Part(
+                "P001", "Brake Pad", "TVS",
+                1000, 10, "brakes",
+                "01-01-2025", "image.jpg", 5);
+
+        String text = part.toString();
+        assertTrue(text.contains("P001"));
+        assertTrue(text.contains("Brake Pad"));
+        assertTrue(text.contains("TVS"));
     }
 
     @Test
