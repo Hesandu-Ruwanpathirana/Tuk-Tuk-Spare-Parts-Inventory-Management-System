@@ -70,6 +70,11 @@ class CartTest {
 
     @Test
     void clear() {
+        cart.addItem(enginePart, 2);
+        cart.addItem(brakePart, 1);
+
+        cart.clear();
+        assertTrue(cart.isEmpty());
     }
 
     @Test
