@@ -20,6 +20,14 @@ class CartItemTest {
 
     @Test
     void getQuantity() {
+        Part part = new Part(
+                "P001","Brake Pad","TVS",
+                1000,10,"brakes",
+                "01-01-2025","",5);
+
+        CartItem item = new CartItem(part,3);
+
+        assertEquals(3, item.getQuantity());
     }
 
     @Test
