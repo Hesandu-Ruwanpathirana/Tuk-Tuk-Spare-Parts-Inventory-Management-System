@@ -42,10 +42,45 @@ class InventoryServiceTest {
 
     @Test
     void updatePart() {
+        InventoryService service = new InventoryService("test.txt","audit.txt");
+
+        Part original = new Part(
+                "P001","Brake Pad","TVS",
+                1000,10,"brakes",
+                "01-01-2025","",5);
+
+        service.addPart(original);
+
+        Part updated = new Part(
+                "P001","Premium Brake Pad","TVS",
+                1500,15,"brakes",
+                "01-01-2025","",5);
+
+        service.updatePart("P001", updated);
+
+        assertEquals("Premium Brake Pad",
+                service.parts.get(0).getPartName());
+
+        assertEquals(1500,
+                service.parts.get(0).getPrice());
     }
 
     @Test
     void searchParts() {
+        InventoryService service = new InventoryService("test.txt","audit.txt");
+
+        service.addPart(new Part(
+                "P001","Brake Pad","TVS",
+                1000,10,"brakes",
+                "01-01-2025","",5));
+
+        List<Part> results =
+                service.searchParts("Brake","",0,0);
+
+        assertEquals(1, results.size());
+        assertEquals("Brake Pad",
+                results.get(0).getPartName());
+
     }
 
     @Test
