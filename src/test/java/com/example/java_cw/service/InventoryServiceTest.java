@@ -85,6 +85,19 @@ class InventoryServiceTest {
 
     @Test
     void getLowStockParts() {
+        InventoryService service = new InventoryService("test.txt","audit.txt");
+
+        service.addPart(new Part(
+                "P001","Brake Pad","TVS",
+                1000,3,"brakes",
+                "01-01-2025","",5));
+
+        List<Part> lowStock =
+                service.getLowStockParts();
+
+        assertEquals(1, lowStock.size());
+        assertEquals("P001",
+                lowStock.get(0).getPartId());
     }
 
     @Test
