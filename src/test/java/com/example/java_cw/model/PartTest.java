@@ -34,6 +34,13 @@ class PartTest {
 
     @Test
     void setCategory() {
+        Part part = new Part(
+                "P001", "Brake Pad", "TVS",
+                1000, 10, "brakes",
+                "01-01-2025", "", 5);
+
+        part.setCategory("engine");
+        assertEquals("engine", part.getCategory());
     }
 
     @Test
