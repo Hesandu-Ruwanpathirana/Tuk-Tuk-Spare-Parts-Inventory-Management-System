@@ -1,6 +1,6 @@
-package com.example.java_cw.service;
+package com.example.java_cw.model;
 
-import com.example.java_cw.model.Part;
+import com.example.java_cw.service.InventoryService;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
