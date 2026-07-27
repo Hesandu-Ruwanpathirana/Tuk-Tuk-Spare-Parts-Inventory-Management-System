@@ -17,8 +17,17 @@ public class Cart {
             return "Quantity must be greater than zero";
         }
 
-        if (quantity > part.getQuantity()) {
-            return "Not enough stock. Available: " + part.getQuantity();
+        int alreadyInCart = 0;
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getPart().getPartId().equals(part.getPartId())) {
+                alreadyInCart = items.get(i).getQuantity();
+                break;
+            }
+        }
+
+        int totalRequested = alreadyInCart + quantity;
+        if (totalRequested > part.getQuantity()) {
+            return "Not enough stock. Available: " + part.getQuantity() + " (you already have " + alreadyInCart + " in your cart)";
         }
 
         for (int i = 0; i < items.size(); i++) {
