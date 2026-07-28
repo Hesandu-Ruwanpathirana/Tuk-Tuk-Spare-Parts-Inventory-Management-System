@@ -2,6 +2,26 @@ Malabe Tuk-Tuk & Three-Wheeler Spare Parts Depot Management System
 
 A JavaFX-based desktop application developed to manage inventory, dealers, and point-of-sale (POS) operations for a three-wheeler spare parts business. The system demonstrates object-oriented programming principles, file handling, searching and sorting algorithms, and a graphical user interface using JavaFX.
 
+## Running the Application
+
+Requirements
+
+- Java JDK 21
+- JavaFX SDK 21
+- IntelliJ IDEA (recommended)
+
+ Steps
+
+1. Clone or download the repository.
+2. Open the project in IntelliJ IDEA.
+3. Configure the JavaFX SDK if it is not already configured.
+4. Ensure the required VM options for JavaFX are set.
+5. Run the application by executing:
+
+Launcher.java
+
+The Launcher class starts the JavaFX application and opens the main management interface.
+
 Overview
 
 The application was developed as part of a Java coursework project to replace manual record-keeping with a digital management system. It allows staff to manage spare parts inventory, maintain dealer records, process customer purchases, and automatically generate audit logs.
