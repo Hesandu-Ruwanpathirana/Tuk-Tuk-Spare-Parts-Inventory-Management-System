@@ -11,11 +11,8 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.text.Text;
 import javafx.util.StringConverter;
-
 import java.net.URL;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 
