@@ -30,17 +30,31 @@
         </placeholder>
     </TableView>
 
-    <HBox spacing="20" alignment="CENTER_LEFT"
+    <VBox spacing="5"
           style="-fx-background-color: #1A3A6B; -fx-padding: 10px; -fx-background-radius: 5px;">
-        <Label fx:id="cartTotalLabel" text="Total: Rs. 0.00"
-               style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;"/>
-        <Region HBox.hgrow="ALWAYS"/>
-        <Button text="Remove Selected" onAction="#onRemoveFromCartClicked"
-                style="-fx-background-color: white; -fx-text-fill: #1A3A6B; -fx-font-weight: bold; -fx-padding: 6px 15px; -fx-background-radius: 4px;"/>
-        <Button text="Clear Cart" onAction="#onClearCartClicked"
-                style="-fx-background-color: #CC2229; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 6px 15px; -fx-background-radius: 4px;"/>
-        <Button text="Checkout" onAction="#onCheckoutClicked"
-                style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 6px 15px; -fx-background-radius: 4px;"/>
-    </HBox>
+
+        <HBox spacing="20" alignment="CENTER_LEFT">
+
+            <Label fx:id="cartTotalLabel"
+                   text="Total: Rs. 0.00"
+                   style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;"/>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Button text="Remove Selected" onAction="#onRemoveFromCartClicked"
+                    style="-fx-background-color: white; -fx-text-fill: #1A3A6B; -fx-font-weight: bold; -fx-padding: 6px 15px; -fx-background-radius: 4px;"/>
+
+            <Button text="Clear Cart" onAction="#onClearCartClicked"
+                    style="-fx-background-color: #CC2229; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 6px 15px; -fx-background-radius: 4px;"/>
+
+            <Button text="Checkout" onAction="#onCheckoutClicked"
+                    style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 6px 15px; -fx-background-radius: 4px;"/>
+        </HBox>
+
+        <Label fx:id="discountLabel"
+               text="No discounts applied."
+               style="-fx-text-fill: white; -fx-font-size: 13px;"/>
+
+    </VBox>
 
 </VBox>

@@ -38,6 +38,8 @@ public class PosController implements Initializable {
     private TableColumn<CartItem, Double> colCartSubTotal;
     @FXML
     private Label cartTotalLabel;
+    @FXML
+    private Label discountLabel;
 
     private InventoryService inventoryService;
     private Cart cart;
@@ -83,7 +85,10 @@ public class PosController implements Initializable {
 
     public void refreshCartTable() {
         cartTable.setItems(FXCollections.observableArrayList(cart.getItems()));
+        cartTable.refresh();
         cartTotalLabel.setText("Total: Rs. " + String.format("%.2f", cart.getTotal()));
+
+        discountLabel.setText(cart.getDiscountSummary());
     }
 
     @FXML

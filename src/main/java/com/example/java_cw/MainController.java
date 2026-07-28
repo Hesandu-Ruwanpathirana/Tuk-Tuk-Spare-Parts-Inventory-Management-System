@@ -73,6 +73,7 @@ public class MainController implements Initializable {
     @FXML
     private TextField thresholdField;
     @FXML private TableView<Dealer> dealersTable;
+
     @FXML private TableColumn<Dealer, String> colDealerId;
     @FXML private TableColumn<Dealer, String> colDealerName;
     @FXML private TableColumn<Dealer, String> colDealerPhone;
