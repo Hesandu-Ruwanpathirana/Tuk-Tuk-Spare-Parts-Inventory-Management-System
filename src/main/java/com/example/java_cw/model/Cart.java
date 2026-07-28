@@ -69,6 +69,43 @@ public class Cart {
 
         return total;
     }
+    public String getDiscountSummary() {
+        double rawTotal = 0;
+        boolean bulkApplied = false;
+
+        for (CartItem item : items) {
+            rawTotal += item.getSubTotal();
+
+            if (item.getQuantity() >= 3) {
+                bulkApplied = true;
+            }
+        }
+
+        boolean synergyApplied =
+                hasCategory("engine") &&
+                        hasCategory("electrical");
+
+        double finalTotal = getTotal();
+
+        if (!bulkApplied && !synergyApplied) {
+            return "No discounts applied.";
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        if (bulkApplied) {
+            sb.append("✓ Bulk Discount (5%) applied\n");
+        }
+
+        if (synergyApplied) {
+            sb.append("✓ Synergy Discount (10%) applied\n");
+        }
+
+        sb.append(String.format("Saved: Rs. %.2f", rawTotal - finalTotal));
+
+        return sb.toString();
+    }
+
 
     public boolean hasCategory(String category) {
         for (int i = 0; i < items.size(); i++) {
@@ -113,6 +150,7 @@ public class Cart {
     }
 
     public int getTotalItems() {
+
         return items.size();
     }
 }
