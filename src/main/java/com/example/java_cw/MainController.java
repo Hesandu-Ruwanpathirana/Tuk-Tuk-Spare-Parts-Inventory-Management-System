@@ -78,6 +78,8 @@ public class MainController implements Initializable {
     @FXML private TableColumn<Dealer, String> colDealerPhone;
     @FXML private TableColumn<Dealer, String> colDealerLocation;
 
+    private String auditPath;
+
 
     @FXML
     private PosController posViewController;
@@ -91,7 +93,7 @@ public class MainController implements Initializable {
 
         String inventoryPath = "src/main/resources/com/example/java_cw/inventory_legacy.txt";
         String dealersPath = "src/main/resources/com/example/java_cw/dealers_legacy.txt";
-        String auditPath = "src/main/resources/com/example/java_cw/audit_log.txt";
+        auditPath = "src/main/resources/com/example/java_cw/audit_log.txt";
 
         inventoryService = new InventoryService(inventoryPath, auditPath);
         dealerService = new DealerService(dealersPath);

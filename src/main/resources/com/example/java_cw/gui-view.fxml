@@ -105,6 +105,10 @@
 
         </Tab>
 
+        <Tab text="Audit Log">
+            <fx:include source="AuditLog.fxml" />
+        </Tab>
+
     </TabPane>
 
 </VBox>
