@@ -104,6 +104,9 @@
             <fx:include fx:id="posView" source="pos-view.fxml" />
 
         </Tab>
+        <Tab text="Audit Log">
+            <fx:include fx:id="auditLogView" source="audit-log-view.fxml" />
+        </Tab>
 
     </TabPane>
 
