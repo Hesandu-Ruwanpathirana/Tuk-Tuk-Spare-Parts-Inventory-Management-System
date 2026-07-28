@@ -17,8 +17,17 @@ public class Cart {
             return "Quantity must be greater than zero";
         }
 
-        if (quantity > part.getQuantity()) {
-            return "Not enough stock. Available: " + part.getQuantity();
+        int alreadyInCart = 0;
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getPart().getPartId().equals(part.getPartId())) {
+                alreadyInCart = items.get(i).getQuantity();
+                break;
+            }
+        }
+
+        int totalRequested = alreadyInCart + quantity;
+        if (totalRequested > part.getQuantity()) {
+            return "Not enough stock. Available: " + part.getQuantity() + " (you already have " + alreadyInCart + " in your cart)";
         }
 
         for (int i = 0; i < items.size(); i++) {
@@ -135,8 +144,6 @@ public class Cart {
                     break;
                 }
             }
-
-
             AuditLogger.log(
                     auditLogPath, "CHECKOUT", item.getPart().getPartId(), "Qty: " + item.getQuantity());
         }
@@ -145,7 +152,46 @@ public class Cart {
         items.clear();
         return "Checkout successful";
     }
+    public String getDiscountSummary() {
+        double rawTotal = 0;
+        boolean bulkApplied = false;
+
+        for (CartItem item : items) {
+            rawTotal += item.getSubTotal();
+
+            if (item.getQuantity() >= 3) {
+                bulkApplied = true;
+            }
+        }
+
+        boolean synergyApplied =
+                hasCategory("engine") &&
+                        hasCategory("electrical");
+
+        double finalTotal = getTotal();
+
+        if (!bulkApplied && !synergyApplied) {
+            return "No discounts applied";
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        if (bulkApplied) {
+            sb.append("Bulk Discount (5%)\n");
+        }
+
+        if (synergyApplied) {
+            sb.append("Synergy Discount (10%)\n");
+        }
+
+        sb.append(String.format("Saved: Rs. %.2f",
+                rawTotal - finalTotal));
+
+        return sb.toString();
+    }
+
     public List<CartItem> getItems() {
+
         return items;
     }
 

@@ -11,11 +11,8 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.text.Text;
 import javafx.util.StringConverter;
-
 import java.net.URL;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 
@@ -38,6 +35,8 @@ public class PosController implements Initializable {
     private TableColumn<CartItem, Double> colCartSubTotal;
     @FXML
     private Label cartTotalLabel;
+    @FXML
+    private Label discountLabel;
 
     private InventoryService inventoryService;
     private Cart cart;
@@ -83,7 +82,10 @@ public class PosController implements Initializable {
 
     public void refreshCartTable() {
         cartTable.setItems(FXCollections.observableArrayList(cart.getItems()));
+        cartTable.refresh();
         cartTotalLabel.setText("Total: Rs. " + String.format("%.2f", cart.getTotal()));
+
+        discountLabel.setText(cart.getDiscountSummary());
     }
 
     @FXML

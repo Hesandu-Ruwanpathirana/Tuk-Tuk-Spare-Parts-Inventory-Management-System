@@ -1,10 +1,10 @@
-P001 | Bajaj 4-Stroke Piston | Bajaj | Rs.4500.0 | Qty:15 | engine | 12-10-2023 | piston4s.jpg
-P002 | TVS King Brake Pad | TVS | Rs.1250.0 | Qty:8 | brakes | 12-05-2023 | brakepad.png
-P003 | 205/50-10 Tyre |  | Rs.6500.0 | Qty:24 | bodywork | 15-10-2023 | 
-P004 | Spark Plug NGK | NGK | Rs.850.0 | Qty:50 | electrical | 05-01-2024 | spark.jpg
-P005 | Clutch Cable Bajaj RE | Bajaj | Rs.950.0 | Qty:12 | engine | 01-02-2024 | cl_cable.jpg
-P006 | Headlight Bulb 12V |  | Rs.450.0 | Qty:30 | electrical | 20-11-2023 | hl_bulb.jpg
-P007 | 3-Wheeler Canopy Cover | Local | Rs.8800.0 | Qty:5 | bodywork | 15-08-2023 | canopy.png
-P008 | Piaggio Ape Filter | Piaggio | Rs.1100.0 | Qty:0 | engine | 28-02-2024 | filter_ape.jpeg
-P009 | Ignition Coil 2-Stroke | Bajaj | Rs.2200.0 | Qty:18 | electrical | 01-09-2023 | 
-P010 | Rear View Mirror |  | Rs.800.0 | Qty:45 | bodywork | 10-10-2023 | mirror.png
+P002 | TVS King Brake Pad | TVS | Rs.1250.0 | Qty:7 | brakes | 12-05-2023 | /Users/hesandur/Desktop/CM1601/Coursework_2/Coursework_2/Java_CW/Images/brake-pad.jpg | Threshold: 10
+P003 | 205/50-10 Tyre |  | Rs.6500.0 | Qty:9 | bodywork | 15-10-2023 | /Users/hesandur/Desktop/CM1601/Coursework_2/Coursework_2/Java_CW/Images/tires.jpg | Threshold: 20
+P004 | Spark Plug NGK | NGK | Rs.850.0 | Qty:46 | electrical | 05-01-2024 | /Users/hesandur/Desktop/CM1601/Coursework_2/Coursework_2/Java_CW/Images/spark-plug.jpg | Threshold: 15
+P005 | Clutch Cable Bajaj RE | Bajaj | Rs.950.0 | Qty:4 | engine | 01-02-2024 | /Users/hesandur/Desktop/CM1601/Coursework_2/Coursework_2/Java_CW/Images/clutch-cable.jpg | Threshold: 24
+P006 | Headlight Bulb 12V |  | Rs.450.0 | Qty:8 | electrical | 20-11-2023 | /Users/hesandur/Desktop/CM1601/Coursework_2/Coursework_2/Java_CW/Images/headlight-bulb.jpg | Threshold: 10
+P007 | 3-Wheeler Canopy Cover | Local | Rs.8800.0 | Qty:13 | bodywork | 15-08-2023 | /Users/hesandur/Desktop/CM1601/Coursework_2/Coursework_2/Java_CW/Images/images.jpeg | Threshold: 16
+P008 | Piaggio Ape Filter | Piaggio | Rs.1100.0 | Qty:19 | engine | 28-02-2024 | /Users/hesandur/Desktop/CM1601/Coursework_2/Coursework_2/Java_CW/Images/filter.jpg | Threshold: 10
+P009 | Ignition Coil 2-Stroke | Bajaj | Rs.2200.0 | Qty:25 | electrical | 01-09-2023 | /Users/hesandur/Desktop/CM1601/Coursework_2/Coursework_2/Java_CW/Images/ignition-coils.jpg | Threshold: 9
+P010 | Rear View Mirror |  | Rs.800.0 | Qty:33 | bodywork | 10-10-2023 | /Users/hesandur/Desktop/CM1601/Coursework_2/Coursework_2/Java_CW/Images/rear-mirror.jpg | Threshold: 8
+P001 | Bajaj Shock Absorber | Bajaj | Rs.20240.0 | Qty:25 | brakes | 12-12-2021 | /Users/hesandur/Desktop/CM1601/Coursework_2/Coursework_2/Java_CW/Images/shock-absorber.jpg | Threshold: 23

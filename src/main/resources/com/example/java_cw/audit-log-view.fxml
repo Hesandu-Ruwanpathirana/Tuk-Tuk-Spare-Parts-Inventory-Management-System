@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" style="-fx-padding: 15px; -fx-background-color: #F5F5F5;"
+      xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.java_cw.AuditLogController"
+      prefHeight="400.0" prefWidth="600.0">
+
+    <TableView fx:id="auditLogTable" style="-fx-background-color: white; -fx-border-color: #DDDDDD;" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colLogTimestamp" prefWidth="160" text="Timestamp" />
+            <TableColumn fx:id="colLogAction" prefWidth="100" text="Action" />
+            <TableColumn fx:id="colLogItemCode" prefWidth="100" text="Item Code" />
+            <TableColumn fx:id="colLogDetails" prefWidth="200" text="Details" />
+        </columns>
+    </TableView>
+
+</VBox>

@@ -73,6 +73,7 @@ public class MainController implements Initializable {
     @FXML
     private TextField thresholdField;
     @FXML private TableView<Dealer> dealersTable;
+
     @FXML private TableColumn<Dealer, String> colDealerId;
     @FXML private TableColumn<Dealer, String> colDealerName;
     @FXML private TableColumn<Dealer, String> colDealerPhone;
@@ -533,7 +534,7 @@ public class MainController implements Initializable {
     }
     public String validatePartFields(String partId, String partName, String priceText, String quantityText,String category, String dateAdded, String thresholdText, Part existingPart) {
         if (partId.isEmpty() || partName.isEmpty() || priceText.isEmpty() || quantityText.isEmpty() || category == null) {
-            return "Part ID, Name, Price, Quantity and Category is required.";
+            return "Part ID,Name,Price,Quantity and Category is required.";
         }
         if (existingPart == null) {
             for (int i = 0; i < inventoryService.parts.size(); i++) {
